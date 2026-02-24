@@ -63,19 +63,26 @@ header h1 {
     letter-spacing: -0.02em; 
     line-height: 1.2; 
     margin-bottom: 1rem;
-    text-align: center;
+    text-align: center !important;
+}
+/* DIỆT TẬN GỐC DROP CAP Ở HEADER */
+header *::first-letter {
+    font-size: inherit !important;
+    float: none !important;
+    margin: 0 !important;
+    font-family: inherit !important;
 }
 .subtitle { 
     font-family: var(--font-sans); 
     color: var(--text-muted); 
-    font-size: 0.9rem; 
+    font-size: 0.85rem !important; 
     font-weight: 300; 
-    letter-spacing: 0.2em; 
+    letter-spacing: 0.25em !important; 
     text-transform: uppercase; 
-    opacity: 0.7;
-    text-align: center;
-    display: block;
-    margin: 0 auto;
+    opacity: 0.6 !important;
+    text-align: center !important;
+    display: block !important;
+    margin: 1rem auto !important;
 }
 
 /* NAV */
