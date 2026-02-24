@@ -4,40 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Triết Học Mỗi Ngày</title>
-    <meta name="description" content="Những suy nghĩ về cuộc sống, cái chết và sự tồn tại">
+    <meta name="description" content="Những suy nghĩ về cuộc sống, cái chết và sự tồn tại - Một không gian yên tĩnh để suy ngẫm về những điều quan trọng nhất.">
     <meta name="author" content="Phi Long">
+    <meta name="keywords" content="triết học, suy ngẫm, cuộc sống, cái chết, tồn tại, văn hóa">
     <meta property="og:title" content="Triết Học Mỗi Ngày">
-    <meta property="og:description" content="Những suy nghĩ về cuộc sống">
+    <meta property="og:description" content="Những suy nghĩ về cuộc sống, cái chết và sự tồn tại">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://canneed02.github.io/triet-hoc-moi-ngay/">
+    <link rel="canonical" href="https://canneed02.github.io/triet-hoc-moi-ngay/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
     <style>
         :root {
-            --bg: #FAF9F6;
-            --text: #1a1a1a;
-            --text-light: #4a4a4a;
-            --text-muted: #8a8a8a;
-            --border: #e8e8e8;
-            --accent: #2a2a2a;
+            /* Colors */
+            --bg: #F5F5F0;
+            --text: #1A1A1A;
+            --text-light: #4A4A4A;
+            --text-muted: #8A8A8A;
+            --border: #E8E8E8;
+            --accent: #2D2D2D;
+            
+            /* Typography */
             --font-display: 'Playfair Display', 'Georgia', serif;
             --font-body: 'Cormorant Garamond', 'Georgia', serif;
-            --font-sans: 'Inter', sans-serif;
+            --font-sans: 'Inter', -apple-system, sans-serif;
+            
+            /* Spacing (8px base) */
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 24px;
+            --space-lg: 32px;
+            --space-xl: 48px;
+            --space-2xl: 64px;
+            --space-3xl: 96px;
+            
+            /* Transitions */
             --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: 0.2s var(--ease-smooth);
+            --transition-smooth: 0.4s var(--ease-smooth);
         }
         
         [data-theme="dark"] {
-            --bg: #0a0a0a;
-            --text: #e0e0e0;
-            --text-light: #a0a0a0;
+            --bg: #0A0A0A;
+            --text: #E0E0E0;
+            --text-light: #A0A0A0;
             --text-muted: #555555;
-            --border: #1a1a1a;
-            --accent: #f0f0f0;
+            --border: #1A1A1A;
+            --accent: #F0F0F0;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         html { scroll-behavior: smooth; }
         
         /* Noise Texture */
@@ -50,14 +68,14 @@
             height: 100%;
             pointer-events: none;
             z-index: 9999;
-            opacity: 0.035;
+            opacity: 0.025;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
         }
         
         body {
             font-family: var(--font-body);
-            font-size: clamp(1.125rem, 2vw, 1.25rem);
-            line-height: 1.85;
+            font-size: 18px;
+            line-height: 1.75;
             color: var(--text);
             background: var(--bg);
             min-height: 100vh;
@@ -71,21 +89,52 @@
             left: 0;
             width: 0%;
             height: 2px;
-            background: var(--text-muted);
-            opacity: 0.3;
+            background: var(--accent);
+            opacity: 0.4;
             z-index: 10000;
             transition: width 0.1s linear;
         }
         
-        .container {
-            max-width: 65ch;
-            margin: 0 auto;
-            padding: 18vh 24px 12vh;
+        /* Scroll to Top */
+        .scroll-top {
+            position: fixed;
+            bottom: var(--space-lg);
+            right: var(--space-lg);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--border);
+            border: none;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--text-muted);
         }
         
+        .scroll-top.visible {
+            opacity: 0.6;
+            visibility: visible;
+        }
+        
+        .scroll-top:hover {
+            opacity: 1;
+        }
+        
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: var(--space-3xl) var(--space-md) var(--space-2xl);
+        }
+        
+        /* Header */
         header {
             text-align: center;
-            margin-bottom: 16vh;
+            margin-bottom: var(--space-3xl);
             animation: fadeIn 1.2s var(--ease-smooth);
         }
         
@@ -96,29 +145,29 @@
         
         h1 {
             font-family: var(--font-display);
-            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 400;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
-            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: var(--space-sm);
         }
         
         .subtitle {
             font-family: var(--font-sans);
             color: var(--text-muted);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 300;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            opacity: 0.7;
         }
         
+        /* Navigation */
         nav {
             display: flex;
             justify-content: center;
-            gap: 3rem;
-            margin-bottom: 12vh;
-            padding-bottom: 2rem;
+            gap: var(--space-xl);
+            margin-bottom: var(--space-2xl);
+            padding-bottom: var(--space-md);
             font-family: var(--font-sans);
         }
         
@@ -130,8 +179,8 @@
             text-transform: uppercase;
             font-weight: 400;
             position: relative;
-            opacity: 0.5;
-            transition: opacity 0.4s var(--ease-smooth);
+            transition: color var(--transition-fast);
+            cursor: pointer;
         }
         
         nav a::after {
@@ -140,41 +189,48 @@
             width: 100%;
             transform: scaleX(0);
             height: 1px;
-            bottom: -4px;
+            bottom: -6px;
             left: 0;
             background-color: currentColor;
             transform-origin: right;
-            transition: transform 0.5s var(--ease-smooth);
+            transition: transform var(--transition-smooth);
         }
         
-        nav a:hover { opacity: 1; }
-        nav a:hover::after { transform: scaleX(1); transform-origin: left; }
+        nav a:hover, nav a.active { color: var(--text); }
+        nav a:hover::after, nav a.active::after { transform: scaleX(1); transform-origin: left; }
         
+        /* Theme Toggle */
         .theme-toggle {
             position: fixed;
-            top: 2rem;
-            right: 2rem;
+            top: var(--space-md);
+            right: var(--space-md);
             background: none;
             border: none;
             color: var(--text-muted);
-            padding: 0.6rem 1rem;
+            padding: var(--space-xs) var(--space-sm);
             font-family: var(--font-sans);
             font-size: 0.65rem;
             letter-spacing: 0.15em;
             text-transform: uppercase;
             cursor: pointer;
-            opacity: 0.4;
-            transition: opacity 0.3s;
+            opacity: 0.5;
+            transition: opacity var(--transition-fast), transform var(--transition-smooth);
             z-index: 100;
         }
         
         .theme-toggle:hover { opacity: 1; }
+        .theme-toggle:active { transform: scale(0.95); }
         
+        /* Articles */
         article {
-            margin-bottom: 5rem;
+            margin-bottom: var(--space-2xl);
+            padding-bottom: var(--space-xl);
+            border-bottom: 1px solid var(--border);
             animation: fadeIn 1s var(--ease-smooth);
             animation-fill-mode: both;
         }
+        
+        article:last-child { border-bottom: none; }
         
         article:nth-child(1) { animation-delay: 0.2s; }
         article:nth-child(2) { animation-delay: 0.3s; }
@@ -184,17 +240,17 @@
         
         article h2 {
             font-family: var(--font-display);
-            font-size: clamp(1.3rem, 2.5vw, 1.6rem);
+            font-size: 1.5rem;
             font-weight: 400;
             line-height: 1.35;
-            margin-bottom: 0.5rem;
+            margin-bottom: var(--space-xs);
         }
         
         article h2 a {
             color: var(--text);
             text-decoration: none;
             position: relative;
-            transition: opacity 0.4s var(--ease-smooth);
+            transition: opacity var(--transition-fast);
         }
         
         article h2 a::after {
@@ -207,47 +263,47 @@
             left: 0;
             background-color: currentColor;
             transform-origin: right;
-            transition: transform 0.5s var(--ease-smooth);
+            transition: transform var(--transition-smooth);
         }
         
         article h2 a:hover::after { transform: scaleX(1); transform-origin: left; }
         article h2 a:hover { opacity: 0.7; }
         
-        article .meta {
+        .meta {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-sm);
         }
         
-        article .date {
+        .date {
             font-family: var(--font-sans);
             color: var(--text-muted);
             font-size: 0.65rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
             font-weight: 300;
-            opacity: 0.5;
         }
         
-        article .read-time {
+        .read-time {
             font-family: var(--font-sans);
             color: var(--text-muted);
             font-size: 0.65rem;
             letter-spacing: 0.1em;
             font-weight: 300;
-            opacity: 0.4;
+            opacity: 0.7;
         }
         
         article p {
             color: var(--text-light);
             font-size: 1.05rem;
-            line-height: 1.9;
+            line-height: 1.8;
         }
         
+        /* Footer */
         footer {
-            margin-top: 16vh;
-            padding-top: 3rem;
+            margin-top: var(--space-3xl);
+            padding-top: var(--space-lg);
             text-align: center;
             font-family: var(--font-sans);
             color: var(--text-muted);
@@ -255,37 +311,37 @@
             letter-spacing: 0.2em;
             text-transform: uppercase;
             font-weight: 300;
-            opacity: 0.4;
+            opacity: 0.6;
         }
         
         .divider {
-            width: 2rem;
+            width: 32px;
             height: 1px;
             background: var(--border);
-            margin: 0 auto 2rem;
+            margin: 0 auto var(--space-lg);
         }
         
         /* Text Selection */
         ::selection {
-            background: var(--text);
+            background: var(--accent);
             color: var(--bg);
         }
         
         [data-theme="dark"] ::selection {
-            background: #e0e0e0;
-            color: #0a0a0a;
+            background: #E0E0E0;
+            color: #0A0A0A;
         }
         
         @media (max-width: 600px) {
-            .container { padding: 14vh 20px 8vh; }
-            nav { gap: 1.5rem; }
-            article { margin-bottom: 4rem; }
+            .container { padding: var(--space-2xl) var(--space-sm) var(--space-xl); }
+            nav { gap: var(--space-md); }
+            article { margin-bottom: var(--space-xl); }
         }
     </style>
 </head>
 <body>
     <div class="scroll-progress" id="progress"></div>
-    <button class="theme-toggle" onclick="toggleTheme()">Dark</button>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Chuyển đổi giao diện">Dark</button>
     
     <div class="container">
         <header>
@@ -294,7 +350,7 @@
         </header>
         
         <nav>
-            <a href="index.html">Trang chủ</a>
+            <a href="index.html" class="active">Trang chủ</a>
             <a href="essays.html">Bài viết</a>
             <a href="about.html">Giới thiệu</a>
         </nav>
@@ -349,9 +405,11 @@
         <footer>
             <div class="divider"></div>
             <p>© 2026 Triết Học Mỗi Ngày</p>
-            <p style="margin-top: 0.5rem;">Viết cho những ai đang tỉnh</p>
+            <p style="margin-top: var(--space-xs);">Viết cho những ai đang tỉnh</p>
         </footer>
     </div>
+    
+    <button class="scroll-top" id="scrollTop" aria-label="Lên đầu trang">↑</button>
     
     <script>
         // Scroll Progress
@@ -360,6 +418,19 @@
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
             document.getElementById('progress').style.width = scrolled + '%';
+            
+            // Scroll to top button
+            const scrollBtn = document.getElementById('scrollTop');
+            if (winScroll > 400) {
+                scrollBtn.classList.add('visible');
+            } else {
+                scrollBtn.classList.remove('visible');
+            }
+        });
+        
+        // Scroll to top
+        document.getElementById('scrollTop').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
         
         // Theme Toggle
