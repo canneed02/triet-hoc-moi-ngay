@@ -6,87 +6,27 @@
     <title>Admin - Triết Học Mỗi Ngày</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --bg: #0A0A0A;
-            --text: #E0E0E0;
-            --text-muted: #888;
-            --accent: #1A1A1A;
-            --border: #333;
-            --primary: #E0E0E0;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            padding: 40px 20px;
-        }
+        :root { --bg: #0A0A0A; --text: #E0E0E0; --text-muted: #888; --accent: #1A1A1A; --border: #333; --primary: #E0E0E0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 40px 20px; }
         .container { max-width: 700px; margin: 0 auto; }
-        
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border);
-        }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
         .header h1 { font-size: 1.5rem; font-weight: 400; }
         .logout { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; cursor: pointer; }
-        
         .form-group { margin-bottom: 24px; }
         label { display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 0.85rem; }
-        input, textarea {
-            width: 100%;
-            padding: 14px;
-            background: var(--accent);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--text);
-            font-family: inherit;
-            font-size: 1rem;
-        }
+        input, textarea { width: 100%; padding: 14px; background: var(--accent); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; font-size: 1rem; }
         input:focus, textarea:focus { outline: none; border-color: var(--primary); }
         textarea { min-height: 300px; line-height: 1.6; resize: vertical; }
-        
-        .btn {
-            padding: 14px 28px;
-            background: var(--primary);
-            color: var(--bg);
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
+        .btn { padding: 14px 28px; background: var(--primary); color: var(--bg); border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: opacity 0.2s; }
         .btn:hover { opacity: 0.9; }
         .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        
-        .token-group {
-            background: var(--accent);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-        }
+        .token-group { background: var(--accent); padding: 20px; border-radius: 8px; margin-bottom: 30px; }
         .token-group h3 { font-size: 1rem; margin-bottom: 12px; }
         .token-group p { color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px; }
         .token-group a { color: #60a5fa; }
-        
-        .status {
-            margin-top: 20px;
-            padding: 16px;
-            border-radius: 8px;
-            display: none;
-        }
+        .status { margin-top: 20px; padding: 16px; border-radius: 8px; display: none; }
         .status.success { background: #064e3b; color: #6ee7b7; display: block; }
         .status.error { background: #450a0a; color: #fca5a5; display: block; }
-        
-        .preview-link {
-            display: inline-block;
-            margin-top: 10px;
-            color: #60a5fa;
-            text-decoration: none;
-        }
     </style>
 </head>
 <body>
@@ -162,16 +102,21 @@
                 .replace(/[^a-z0-9]+/g, '-')
                 .replace(/(^-|-$)/g, '');
             
-            // Current date
+            // Get current date from browser (YYYY-MM-DD)
             const now = new Date();
-            const date = now.toISOString().split('T')[0];
-            const filename = `_posts/${date}-${slug}.md`;
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const dateStr = `${year}-${month}-${day}`;
+            
+            // FILENAME: YYYY-MM-DD-slug.md (Jekyll standard)
+            const filename = `_posts/${dateStr}-${slug}.md`;
             
             // Build Jekyll content
             const jekyllContent = `---
 layout: post
 title: "${title}"
-date: ${date}
+date: ${dateStr}
 description: "${description}"
 ---
 
@@ -203,7 +148,6 @@ ${content}
                 if (response.ok) {
                     statusDiv.className = 'status success';
                     statusDiv.innerHTML = `✅ Đăng bài thành công!<br>Bài viết sẽ xuất hiện sau 1-2 phút khi GitHub Pages build xong.`;
-                    // Clear form
                     document.getElementById('title').value = '';
                     document.getElementById('description').value = '';
                     document.getElementById('content').value = '';
