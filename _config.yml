@@ -2,18 +2,12 @@ title: "Triết Học Mỗi Ngày"
 description: "Những suy nghĩ về cuộc sống, cái chết và sự tồn tại"
 url: "https://canneed02.github.io"
 baseurl: "/triet-hoc-moi-ngay"
-github_username: "canneed02"
-
 permalink: /:title/
-
-collections:
-  essays:
-    output: true
-
-markdown: kramdown
+timezone: Asia/Ho_Chi_Minh
 
 future: true
-show_drafts: true
 
-# Decap CMS
-cms_engine: decap
+collections:
+  posts:
+    output: true
+    permalink: /:title/
