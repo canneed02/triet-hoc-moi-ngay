@@ -3,11 +3,5 @@ description: "Những suy nghĩ về cuộc sống, cái chết và sự tồn t
 url: "https://canneed02.github.io"
 baseurl: "/triet-hoc-moi-ngay"
 permalink: /:title/
+
 timezone: Asia/Ho_Chi_Minh
-
-future: true
-
-collections:
-  posts:
-    output: true
-    permalink: /:title/
