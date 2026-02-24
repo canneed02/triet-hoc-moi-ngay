@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Triết Học Mỗi Ngày</title>
+    <meta name="description" content="Những suy nghĩ về cuộc sống, cái chết và sự tồn tại">
+    <meta name="author" content="Phi Long">
+    <meta property="og:title" content="Triết Học Mỗi Ngày">
+    <meta property="og:description" content="Những suy nghĩ về cuộc sống">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
     <style>
         * {
             margin: 0;
@@ -11,146 +17,220 @@
             box-sizing: border-box;
         }
         
+        :root {
+            --bg: #fafaf9;
+            --text: #1a1a1a;
+            --text-light: #666;
+            --accent: #2563eb;
+            --border: #e5e5e5;
+        }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.8;
-            color: #1a1a1a;
-            max-width: 680px;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.85;
+            color: var(--text);
+            background: var(--bg);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 580px;
             margin: 0 auto;
-            padding: 40px 20px;
-            background: #fafafa;
+            padding: 80px 24px;
         }
         
         header {
-            margin-bottom: 60px;
             text-align: center;
+            margin-bottom: 80px;
+            animation: fadeIn 1s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         h1 {
-            font-size: 2.5rem;
-            font-weight: 300;
-            letter-spacing: 0.1em;
-            margin-bottom: 10px;
-            color: #1a1a1a;
+            font-size: 2.2rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            color: var(--text);
         }
         
         .subtitle {
-            color: #666;
-            font-size: 0.9rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text-light);
+            font-size: 0.95rem;
             font-style: italic;
+            letter-spacing: 0.05em;
         }
         
         nav {
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 60px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
         
         nav a {
-            color: #666;
+            color: var(--text-light);
             text-decoration: none;
-            margin-right: 20px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
             transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--text);
+            transition: width 0.3s;
         }
         
         nav a:hover {
-            color: #1a1a1a;
+            color: var(--text);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
         }
         
         article {
-            margin-bottom: 60px;
+            margin-bottom: 56px;
+            animation: fadeIn 1s ease;
+            animation-fill-mode: both;
         }
         
+        article:nth-child(1) { animation-delay: 0.1s; }
+        article:nth-child(2) { animation-delay: 0.2s; }
+        article:nth-child(3) { animation-delay: 0.3s; }
+        article:nth-child(4) { animation-delay: 0.4s; }
+        article:nth-child(5) { animation-delay: 0.5s; }
+        
         article h2 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 400;
-            margin-bottom: 10px;
-            color: #1a1a1a;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        article h2 a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        article h2 a:hover {
+            color: var(--accent);
         }
         
         article .date {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             color: #999;
-            font-size: 0.8rem;
-            margin-bottom: 20px;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
         }
         
         article p {
-            margin-bottom: 20px;
-            text-align: justify;
-        }
-        
-        article a {
-            color: #1a1a1a;
-            text-decoration: underline;
+            color: var(--text-light);
+            font-size: 1rem;
         }
         
         footer {
-            margin-top: 80px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
+            margin-top: 100px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
             text-align: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             color: #999;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        
+        .divider {
+            width: 40px;
+            height: 1px;
+            background: var(--border);
+            margin: 0 auto 24px;
         }
         
         @media (max-width: 600px) {
-            body {
-                padding: 20px;
+            .container {
+                padding: 48px 20px;
             }
             h1 {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
+            }
+            nav {
+                gap: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Triết Học Mỗi Ngày</h1>
-        <p class="subtitle">Những suy nghĩ về cuộc sống, cái chết và sự tồn tại</p>
-    </header>
-    
-    <nav>
-        <a href="index.html">Trang chủ</a>
-        <a href="essays.html">Tất cả bài viết</a>
-        <a href="about.html">Giới thiệu</a>
-    </nav>
-    
-    <main>
-        <article>
-            <h2><a href="the-sphere.html">Đứa Trẻ Trong Quả Cầu Kính</a></h2>
-            <p class="date">24/02/2026</p>
-            <p>Một đứa trẻ được sinh ra trong một quả cầu kính. Quả cầu ấy là mẹ của nó...</p>
-        </article>
+    <div class="container">
+        <header>
+            <h1>Triết Học Mỗi Ngày</h1>
+            <p class="subtitle">Những suy nghĩ về cuộc sống, cái chết và sự tồn tại</p>
+        </header>
         
-        <article>
-            <h2><a href="money-story.html">Chuyện Tiền</a></h2>
-            <p class="date">23/02/2026</p>
-            <p>Tiền không phải giấy. Tiền là niềm tin. Khi niềm tin sụp đổ, tiền chỉ là giấy...</p>
-        </article>
+        <nav>
+            <a href="index.html">Trang chủ</a>
+            <a href="essays.html">Bài viết</a>
+            <a href="about.html">Giới thiệu</a>
+        </nav>
         
-        <article>
-            <h2><a href="death-meditation.html">Thiền Về Cái Chết</a></h2>
-            <p class="date">22/02/2026</p>
-            <p>Cái chết không phải kẻ thù. Cái chết là người thầy cuối cùng của đời người...</p>
-        </article>
+        <main>
+            <article>
+                <p class="date">24/02/2026</p>
+                <h2><a href="the-sphere.html">Đứa Trẻ Trong Quả Cầu Kính</a></h2>
+                <p>Một đứa trẻ được sinh ra trong một quả cầu kính. Quả cầu ấy là mẹ của nó...</p>
+            </article>
+            
+            <article>
+                <p class="date">23/02/2026</p>
+                <h2><a href="money-story.html">Chuyện Tiền</a></h2>
+                <p>Tiền không phải giấy. Tiền là niềm tin. Khi niềm tin sụp đổ, tiền chỉ là giấy...</p>
+            </article>
+            
+            <article>
+                <p class="date">22/02/2026</p>
+                <h2><a href="death-meditation.html">Thiền Về Cái Chết</a></h2>
+                <p>Cái chết không phải kẻ thù. Cái chết là người thầy cuối cùng của đời người...</p>
+            </article>
+            
+            <article>
+                <p class="date">21/02/2026</p>
+                <h2><a href="three-million.html">Lương Ba Triệu</a></h2>
+                <p>Lương ba triệu về quê ăn tết. Câu hát viral nhất mùa Tết 2026...</p>
+            </article>
+            
+            <article>
+                <p class="date">20/02/2026</p>
+                <h2><a href="lonely-whale.html">Cá Voi Cô Đơn</a></h2>
+                <p>Có những người giống như con cá voi 52 hertz — phát ra tần số không ai hiểu...</p>
+            </article>
+        </main>
         
-        <article>
-            <h2><a href="three-million.html">Lương Ba Triệu</a></h2>
-            <p class="date">21/02/2026</p>
-            <p>Lương ba triệu về quê ăn tết. Câu hát viral nhất mùa Tết 2026...</p>
-        </article>
-        
-        <article>
-            <h2><a href="lonely-whale.html">Cá Voi Cô Đơn</a></h2>
-            <p class="date">20/02/2026</p>
-            <p>Có những người giống như con cá voi 52 hertz — phát ra tần số không ai hiểu...</p>
-        </article>
-    </main>
-    
-    <footer>
-        <p>© 2026 Triết Học Mỗi Ngày</p>
-        <p>Viết cho những ai đang tỉnh</p>
-    </footer>
+        <footer>
+            <div class="divider"></div>
+            <p>© 2026 Triết Học Mỗi Ngày</p>
+            <p style="margin-top: 8px; color: #bbb;">Viết cho những ai đang tỉnh</p>
+        </footer>
+    </div>
 </body>
 </html>

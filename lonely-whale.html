@@ -4,46 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cá Voi Cô Đơn — Triết Học Mỗi Ngày</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.9;
-            color: #1a1a1a;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 60px 20px;
-            background: #fafafa;
-        }
-        h1 { font-size: 1.8rem; font-weight: 300; margin-bottom: 8px; letter-spacing: 0.05em; }
-        .date { color: #999; font-size: 0.85rem; margin-bottom: 40px; }
-        p { margin-bottom: 24px; text-align: justify; }
-        .back { display: inline-block; margin-bottom: 40px; color: #666; text-decoration: none; font-size: 0.9rem; }
-        .back:hover { color: #1a1a1a; }
-        footer { margin-top: 80px; padding-top: 20px; border-top: 1px solid #eee; text-align: center; color: #999; font-size: 0.8rem; }
+        :root { --bg: #fafaf9; --text: #1a1a1a; --text-light: #555; --border: #e5e5e5; }
+        body { font-family: 'Georgia', 'Times New Roman', serif; line-height: 2; color: var(--text); background: var(--bg); min-height: 100vh; }
+        .container { max-width: 520px; margin: 0 auto; padding: 80px 24px; }
+        .back { display: inline-block; margin-bottom: 48px; color: #999; text-decoration: none; font-family: -apple-system, sans-serif; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; }
+        h1 { font-size: 1.6rem; font-weight: 400; line-height: 1.4; margin-bottom: 8px; }
+        .date { font-family: -apple-system, sans-serif; color: #999; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 48px; }
+        p { margin-bottom: 28px; text-align: justify; font-size: 1.05rem; color: var(--text-light); }
+        p:first-of-type::first-letter { font-size: 3.5em; float: left; line-height: 0.8; margin-right: 0.1em; margin-top: 0.05em; font-family: Georgia, serif; }
+        footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center; font-family: -apple-system, sans-serif; color: #999; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; }
     </style>
 </head>
 <body>
-    <a href="index.html" class="back">← Trang chủ</a>
-    <h1>Cá Voi Cô Đơn</h1>
-    <p class="date">20/02/2026</p>
-    
-    <p>Trong đại dương có một con cá voi phát ra tần số 52 hertz. Không con cá voi nào nghe được. Nó hát một mình trong bóng tối.</p>
-    
-    <p>Các nhà khoa học gọi nó là "cá voi cô đơn nhất thế giới."</p>
-    
-    <p>Nhưng tôi tự hỏi: nó có cô đơn không? Hay chúng ta chỉ chiếu lên nó cảm xúc của chính mình?</p>
-    
-    <p>Có những người giống như con cá voi 52 hertz. Họ nói điều không ai hiểu. Họ cảm điều không ai cảm. Họ sống trong thế giới riêng.</p>
-    
-    <p>Nhưng đôi khi, người cô đơn nhất lại là người tự do nhất. Không bị hiểu có nghĩa là không bị định nghĩa. Không bị chấp nhận có nghĩa là không bị kiểm soát.</p>
-    
-    <p>Có lẽ con cá voi ấy không cô đơn. Nó chỉ đang ở một tần số khác. Một ngày nào đó, có thể sẽ có một con cá voi khác nghe thấy. Hoặc có thể không. Nhưng nó vẫn hát.</p>
-    
-    <p>Vậy nên, nếu bạn cảm thấy như con cá voi 52 hertz — đừng sợ. Hãy tiếp tục hát. Biết đâu một ngày nào đó, sẽ có ai đó nghe thấy.</p>
-    
-    <footer>
-        <p>© 2026 Triết Học Mỗi Ngày</p>
-    </footer>
+    <div class="container">
+        <a href="index.html" class="back">← Trang chủ</a>
+        <h1>Cá Voi Cô Đơn</h1>
+        <p class="date">20/02/2026</p>
+        <p>Trong đại dương có một con cá voi phát ra tần số 52 hertz. Không con cá voi nào nghe được. Nó hát một mình trong bóng tối.</p>
+        <p>Các nhà khoa học gọi nó là "cá voi cô đơn nhất thế giới."</p>
+        <p>Nhưng tôi tự hỏi: nó có cô đơn không? Hay chúng ta chỉ chiếu lên nó cảm xúc của chính mình?</p>
+        <p>Có những người giống như con cá voi 52 hertz. Họ nói điều không ai hiểu. Họ cảm điều không ai cảm. Họ sống trong thế giới riêng.</p>
+        <p>Nhưng đôi khi, người cô đơn nhất lại là người tự do nhất. Không bị hiểu có nghĩa là không bị định nghĩa. Không bị chấp nhận có nghĩa là không bị kiểm soát.</p>
+        <p>Có lẽ con cá voi ấy không cô đơn. Nó chỉ đang ở một tần số khác. Một ngày nào đó, có thể sẽ có một con cá voi khác nghe thấy. Hoặc có thể không. Nhưng nó vẫn hát.</p>
+        <p>Vậy nên, nếu bạn cảm thấy như con cá voi 52 hertz — đừng sợ. Hãy tiếp tục hát. Biết đâu một ngày nào đó, sẽ có ai đó nghe thấy.</p>
+        <footer><p>© 2026 Triết Học Mỗi Ngày</p></footer>
+    </div>
 </body>
 </html>

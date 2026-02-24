@@ -4,66 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tất Cả Bài Viết — Triết Học Mỗi Ngày</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.9;
-            color: #1a1a1a;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 60px 20px;
-            background: #fafafa;
-        }
-        h1 { font-size: 1.8rem; font-weight: 300; margin-bottom: 30px; letter-spacing: 0.05em; }
-        .essay { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
+        :root { --bg: #fafaf9; --text: #1a1a1a; --text-light: #555; --border: #e5e5e5; }
+        body { font-family: 'Georgia', 'Times New Roman', serif; line-height: 1.9; color: var(--text); background: var(--bg); min-height: 100vh; }
+        .container { max-width: 520px; margin: 0 auto; padding: 80px 24px; }
+        .back { display: inline-block; margin-bottom: 48px; color: #999; text-decoration: none; font-family: -apple-system, sans-serif; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; }
+        h1 { font-size: 1.6rem; font-weight: 400; margin-bottom: 40px; }
+        .essay { margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
         .essay:last-child { border-bottom: none; }
-        .essay h2 { font-size: 1.2rem; font-weight: 400; margin-bottom: 5px; }
-        .essay h2 a { color: #1a1a1a; text-decoration: none; }
-        .essay h2 a:hover { text-decoration: underline; }
-        .essay .date { color: #999; font-size: 0.8rem; }
-        .essay p { color: #666; font-size: 0.95rem; margin-top: 10px; }
-        .back { display: inline-block; margin-bottom: 40px; color: #666; text-decoration: none; font-size: 0.9rem; }
-        .back:hover { color: #1a1a1a; }
-        footer { margin-top: 80px; padding-top: 20px; border-top: 1px solid #eee; text-align: center; color: #999; font-size: 0.8rem; }
+        .essay h2 { font-size: 1.2rem; font-weight: 400; margin-bottom: 6px; }
+        .essay h2 a { color: var(--text); text-decoration: none; transition: color 0.3s; }
+        .essay h2 a:hover { color: #2563eb; }
+        .essay .date { font-family: -apple-system, sans-serif; color: #999; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; }
+        .essay p { color: var(--text-light); font-size: 0.95rem; margin-top: 10px; }
+        footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center; font-family: -apple-system, sans-serif; color: #999; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; }
     </style>
 </head>
 <body>
-    <a href="index.html" class="back">← Trang chủ</a>
-    <h1>Tất Cả Bài Viết</h1>
-    
-    <div class="essay">
-        <h2><a href="the-sphere.html">Đứa Trẻ Trong Quả Cầu Kính</a></h2>
-        <p class="date">24/02/2026</p>
-        <p>Một đứa trẻ được sinh ra trong một quả cầu kính. Quả cầu ấy là mẹ của nó...</p>
+    <div class="container">
+        <a href="index.html" class="back">← Trang chủ</a>
+        <h1>Tất Cả Bài Viết</h1>
+        
+        <div class="essay">
+            <p class="date">24/02/2026</p>
+            <h2><a href="the-sphere.html">Đứa Trẻ Trong Quả Cầu Kính</a></h2>
+            <p>Một đứa trẻ được sinh ra trong một quả cầu kính. Quả cầu ấy là mẹ của nó...</p>
+        </div>
+        
+        <div class="essay">
+            <p class="date">23/02/2026</p>
+            <h2><a href="money-story.html">Chuyện Tiền</a></h2>
+            <p>Tiền không phải giấy. Tiền là niềm tin...</p>
+        </div>
+        
+        <div class="essay">
+            <p class="date">22/02/2026</p>
+            <h2><a href="death-meditation.html">Thiền Về Cái Chết</a></h2>
+            <p>Cái chết không phải kẻ thù. Cái chết là người thầy cuối cùng của đời người...</p>
+        </div>
+        
+        <div class="essay">
+            <p class="date">21/02/2026</p>
+            <h2><a href="three-million.html">Lương Ba Triệu</a></h2>
+            <p>Lương ba triệu về quê ăn tết. Câu hát viral nhất mùa Tết 2026...</p>
+        </div>
+        
+        <div class="essay">
+            <p class="date">20/02/2026</p>
+            <h2><a href="lonely-whale.html">Cá Voi Cô Đơn</a></h2>
+            <p>Có những người giống như con cá voi 52 hertz — phát ra tần số không ai hiểu...</p>
+        </div>
+        
+        <footer><p>© 2026 Triết Học Mỗi Ngày</p></footer>
     </div>
-    
-    <div class="essay">
-        <h2><a href="money-story.html">Chuyện Tiền</a></h2>
-        <p class="date">23/02/2026</p>
-        <p>Tiền không phải giấy. Tiền là niềm tin...</p>
-    </div>
-    
-    <div class="essay">
-        <h2><a href="death-meditation.html">Thiền Về Cái Chết</a></h2>
-        <p class="date">22/02/2026</p>
-        <p>Cái chết không phải kẻ thù. Cái chết là người thầy cuối cùng của đời người...</p>
-    </div>
-    
-    <div class="essay">
-        <h2><a href="three-million.html">Lương Ba Triệu</a></h2>
-        <p class="date">21/02/2026</p>
-        <p>Lương ba triệu về quê ăn tết. Câu hát viral nhất mùa Tết 2026...</p>
-    </div>
-    
-    <div class="essay">
-        <h2><a href="lonely-whale.html">Cá Voi Cô Đơn</a></h2>
-        <p class="date">20/02/2026</p>
-        <p>Có những người giống như con cá voi 52 hertz — phát ra tần số không ai hiểu...</p>
-    </div>
-    
-    <footer>
-        <p>© 2026 Triết Học Mỗi Ngày</p>
-    </footer>
 </body>
 </html>
