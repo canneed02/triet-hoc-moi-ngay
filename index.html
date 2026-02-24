@@ -9,80 +9,102 @@
     <meta property="og:title" content="Triết Học Mỗi Ngày">
     <meta property="og:description" content="Những suy nghĩ về cuộc sống">
     <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
     <style>
+        /* CSS Variables */
+        :root {
+            --bg: #FAF9F6;
+            --text: #2C2C2C;
+            --text-light: #666666;
+            --text-muted: #999999;
+            --accent: #2C2C2C;
+            --border: #EAEAEA;
+            --font-serif: 'Lora', 'Georgia', 'Times New Roman', serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        [data-theme="dark"] {
+            --bg: #1a1a1a;
+            --text: #E8E8E8;
+            --text-light: #AAAAAA;
+            --text-muted: #666666;
+            --accent: #FFFFFF;
+            --border: #333333;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         
-        :root {
-            --bg: #fafaf9;
-            --text: #1a1a1a;
-            --text-light: #666;
-            --accent: #2563eb;
-            --border: #e5e5e5;
-        }
-        
         body {
-            font-family: 'Georgia', 'Times New Roman', serif;
-            line-height: 1.85;
+            font-family: var(--font-serif);
+            font-size: 18px;
+            line-height: 1.8;
             color: var(--text);
             background: var(--bg);
             min-height: 100vh;
+            transition: background 0.3s, color 0.3s;
         }
         
         .container {
-            max-width: 580px;
+            max-width: 700px;
             margin: 0 auto;
-            padding: 80px 24px;
+            padding: 100px 24px 80px;
         }
         
+        /* Header */
         header {
             text-align: center;
-            margin-bottom: 80px;
-            animation: fadeIn 1s ease;
+            margin-bottom: 100px;
+            animation: fadeIn 1.2s ease;
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
         h1 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 400;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
             margin-bottom: 16px;
             color: var(--text);
         }
         
         .subtitle {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            color: var(--text-light);
-            font-size: 0.95rem;
+            font-family: var(--font-sans);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 0.08em;
             font-style: italic;
-            letter-spacing: 0.05em;
         }
         
+        /* Navigation */
         nav {
             display: flex;
             justify-content: center;
-            gap: 32px;
-            margin-bottom: 60px;
-            padding-bottom: 24px;
+            gap: 48px;
+            margin-bottom: 80px;
+            padding-bottom: 32px;
             border-bottom: 1px solid var(--border);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: var(--font-sans);
         }
         
         nav a {
-            color: var(--text-light);
+            color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.85rem;
-            letter-spacing: 0.1em;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
+            font-weight: 400;
             transition: color 0.3s;
             position: relative;
         }
@@ -90,12 +112,12 @@
         nav a::after {
             content: '';
             position: absolute;
-            bottom: -4px;
+            bottom: -6px;
             left: 0;
             width: 0;
             height: 1px;
             background: var(--text);
-            transition: width 0.3s;
+            transition: width 0.3s ease;
         }
         
         nav a:hover {
@@ -106,82 +128,120 @@
             width: 100%;
         }
         
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .theme-toggle:hover {
+            border-color: var(--text);
+            color: var(--text);
+        }
+        
+        /* Articles */
         article {
-            margin-bottom: 56px;
+            margin-bottom: 72px;
             animation: fadeIn 1s ease;
             animation-fill-mode: both;
         }
         
-        article:nth-child(1) { animation-delay: 0.1s; }
-        article:nth-child(2) { animation-delay: 0.2s; }
-        article:nth-child(3) { animation-delay: 0.3s; }
-        article:nth-child(4) { animation-delay: 0.4s; }
-        article:nth-child(5) { animation-delay: 0.5s; }
+        article:nth-child(1) { animation-delay: 0.15s; }
+        article:nth-child(2) { animation-delay: 0.25s; }
+        article:nth-child(3) { animation-delay: 0.35s; }
+        article:nth-child(4) { animation-delay: 0.45s; }
+        article:nth-child(5) { animation-delay: 0.55s; }
         
         article h2 {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 400;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             line-height: 1.4;
         }
         
         article h2 a {
             color: var(--text);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: opacity 0.3s;
         }
         
         article h2 a:hover {
-            color: var(--accent);
+            opacity: 0.7;
         }
         
         article .date {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            color: #999;
-            font-size: 0.75rem;
-            letter-spacing: 0.1em;
+            font-family: var(--font-sans);
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
+            font-weight: 300;
         }
         
         article p {
             color: var(--text-light);
             font-size: 1rem;
+            line-height: 1.85;
         }
         
+        /* Footer */
         footer {
-            margin-top: 100px;
-            padding-top: 32px;
+            margin-top: 120px;
+            padding-top: 40px;
             border-top: 1px solid var(--border);
             text-align: center;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            color: #999;
-            font-size: 0.75rem;
-            letter-spacing: 0.1em;
+            font-family: var(--font-sans);
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
+            font-weight: 300;
         }
         
         .divider {
-            width: 40px;
+            width: 30px;
             height: 1px;
             background: var(--border);
-            margin: 0 auto 24px;
+            margin: 0 auto 32px;
         }
         
+        /* Responsive */
         @media (max-width: 600px) {
             .container {
-                padding: 48px 20px;
+                padding: 60px 20px 40px;
             }
             h1 {
-                font-size: 1.6rem;
+                font-size: 1.4rem;
+                letter-spacing: 0.15em;
             }
             nav {
-                gap: 20px;
+                gap: 24px;
+            }
+            body {
+                font-size: 17px;
+            }
+            article {
+                margin-bottom: 56px;
             }
         }
     </style>
 </head>
 <body>
+    <button class="theme-toggle" onclick="toggleTheme()">Dark</button>
+    
     <div class="container">
         <header>
             <h1>Triết Học Mỗi Ngày</h1>
@@ -229,8 +289,32 @@
         <footer>
             <div class="divider"></div>
             <p>© 2026 Triết Học Mỗi Ngày</p>
-            <p style="margin-top: 8px; color: #bbb;">Viết cho những ai đang tỉnh</p>
+            <p style="margin-top: 8px; color: var(--text-muted);">Viết cho những ai đang tỉnh</p>
         </footer>
     </div>
+    
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const btn = document.querySelector('.theme-toggle');
+            
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.setAttribute('data-theme', 'light');
+                btn.textContent = 'Dark';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                btn.textContent = 'Light';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        
+        // Load saved theme
+        const saved = localStorage.getItem('theme');
+        if (saved === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.querySelector('.theme-toggle').textContent = 'Light';
+        }
+    </script>
 </body>
 </html>

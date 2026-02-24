@@ -5,23 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chuyện Tiền — Triết Học Mỗi Ngày</title>
     <meta name="description" content="Tiền không phải giấy. Tiền là niềm tin.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
     <style>
+        :root { --bg: #FAF9F6; --text: #2C2C2C; --text-light: #555555; --text-muted: #999999; --border: #EAEAEA; --font-serif: 'Lora', 'Georgia', serif; --font-sans: 'Inter', sans-serif; }
+        [data-theme="dark"] { --bg: #1a1a1a; --text: #E8E8E8; --text-light: #AAAAAA; --text-muted: #666666; --border: #333333; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --bg: #fafaf9; --text: #1a1a1a; --text-light: #555; --border: #e5e5e5; }
-        body { font-family: 'Georgia', 'Times New Roman', serif; line-height: 2; color: var(--text); background: var(--bg); min-height: 100vh; }
-        .container { max-width: 520px; margin: 0 auto; padding: 80px 24px; }
-        .back { display: inline-block; margin-bottom: 48px; color: #999; text-decoration: none; font-family: -apple-system, sans-serif; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.3s; }
+        body { font-family: var(--font-serif); font-size: 19px; line-height: 1.85; color: var(--text); background: var(--bg); min-height: 100vh; transition: background 0.3s, color 0.3s; }
+        .container { max-width: 680px; margin: 0 auto; padding: 100px 24px 80px; }
+        .back { display: inline-block; margin-bottom: 64px; color: var(--text-muted); text-decoration: none; font-family: var(--font-sans); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 400; transition: color 0.3s; }
         .back:hover { color: var(--text); }
-        h1 { font-size: 1.6rem; font-weight: 400; line-height: 1.4; margin-bottom: 8px; }
-        .date { font-family: -apple-system, sans-serif; color: #999; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 48px; }
-        p { margin-bottom: 28px; text-align: justify; font-size: 1.05rem; color: var(--text-light); }
-        p:first-of-type::first-letter { font-size: 3.5em; float: left; line-height: 0.8; margin-right: 0.1em; margin-top: 0.05em; font-family: Georgia, serif; }
-        footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center; font-family: -apple-system, sans-serif; color: #999; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; }
-        @media (max-width: 600px) { .container { padding: 48px 20px; } h1 { font-size: 1.4rem; } }
+        h1 { font-size: 1.7rem; font-weight: 400; line-height: 1.4; margin-bottom: 10px; }
+        .date { font-family: var(--font-sans); color: var(--text-muted); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 56px; font-weight: 300; }
+        p { margin-bottom: 30px; text-align: justify; font-size: 1.05rem; color: var(--text-light); line-height: 1.9; }
+        p:first-of-type::first-letter { font-size: 4em; float: left; line-height: 0.75; margin-right: 0.12em; margin-top: 0.1em; font-family: Lora, Georgia, serif; }
+        footer { margin-top: 100px; padding-top: 32px; border-top: 1px solid var(--border); text-align: center; font-family: var(--font-sans); color: var(--text-muted); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 300; }
+        .theme-toggle { position: fixed; top: 24px; right: 24px; background: none; border: 1px solid var(--border); color: var(--text-muted); padding: 8px 16px; font-family: var(--font-sans); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; border-radius: 4px; transition: all 0.3s; }
+        .theme-toggle:hover { border-color: var(--text); color: var(--text); }
+        @media (max-width: 600px) { .container { padding: 60px 20px 40px; } h1 { font-size: 1.4rem; } body { font-size: 18px; } }
     </style>
 </head>
 <body>
+    <button class="theme-toggle" onclick="toggleTheme()">Dark</button>
     <div class="container">
         <a href="index.html" class="back">← Trang chủ</a>
         <h1>Chuyện Tiền</h1>
@@ -31,7 +38,13 @@
         <p>Có người nói tiền làm tha hóa. Nhưng tha hóa là chuyện của người, không phải của tiền. Tiền chỉ phóng đại những gì đã có sẵn trong tâm.</p>
         <p>Một người tốt có tiền sẽ làm nhiều điều tốt. Một người xấu có tiền sẽ làm nhiều điều xấu. Tiền không thay đổi con người. Tiền chỉ cho họ thêm quyền lực để làm điều họ đã muốn làm.</p>
         <p>Vậy nên đừng ghét tiền. Đừng yêu tiền. Chỉ cần xem tiền như nước — cần để sống, nhưng đừng để nước nhấn chìm.</p>
+        <p>"Lương ba triệu về quê ăn tết." Câu hát ấy không nói về sự nghèo. Nó nói về sự chân thành. Tiền ít mà tình đủ, hơn tiền nhiều mà tình không.</p>
+        <p>Nhưng cũng đừng dại. Tiền cho phép ta làm nhiều điều. Điều tốt hay xấu là chuyện của ta.</p>
         <footer><p>© 2026 Triết Học Mỗi Ngày</p></footer>
     </div>
+    <script>
+        function toggleTheme() { const html = document.documentElement; const btn = document.querySelector('.theme-toggle'); html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); btn.textContent = html.getAttribute('data-theme') === 'dark' ? 'Light' : 'Dark'; localStorage.setItem('theme', html.getAttribute('data-theme')); }
+        if (localStorage.getItem('theme') === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); document.querySelector('.theme-toggle').textContent = 'Light'; }
+    </script>
 </body>
 </html>
