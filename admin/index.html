@@ -90,7 +90,7 @@
             font-weight: 500;
             border-radius: 6px;
             cursor: pointer;
-            transition: opacity 0.2s;
+            transition: opacity 0.2s, transform 0.1s;
             border: none;
         }
         .btn-primary {
@@ -102,8 +102,26 @@
             color: var(--text);
             border: 1px solid var(--border);
         }
+        .btn-success {
+            background: #22c55e;
+            color: white;
+        }
+        .btn-success:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
         button:hover {
             opacity: 0.9;
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        .settings-btn {
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
         }
         .output {
             margin-top: 30px;
@@ -199,8 +217,9 @@ Dòng trống sẽ tạo đoạn mới."></textarea>
         </div>
         
         <div class="btn-row">
-            <button class="btn-primary" onclick="generatePost()">Tạo bài viết</button>
+            <button class="btn-primary" id="btnPublish" onclick="publishToGitHub()">Đăng bài lên web</button>
             <button class="btn-secondary" onclick="downloadHTML()">Tải về</button>
+            <button class="settings-btn" onclick="showSettings()">⚙️ Cài đặt</button>
         </div>
         
         <div class="output" id="output">
@@ -390,6 +409,177 @@ git push origin master`;
                 .replace(/\s+/g, '-') + '.html';
             a.click();
             URL.revokeObjectURL(url);
+        }
+
+        // Settings functions
+        function showSettings() {
+            document.getElementById('settingsModal').style.display = 'flex';
+            const savedToken = localStorage.getItem('github_token');
+            if (savedToken) document.getElementById('githubToken').value = savedToken;
+        }
+        function hideSettings() {
+            document.getElementById('settingsModal').style.display = 'none';
+        }
+        function saveSettings() {
+            const token = document.getElementById('githubToken').value.trim();
+            if (token) {
+                localStorage.setItem('github_token', token);
+                hideSettings();
+                alert('✅ Đã lưu token!');
+            }
+        }
+        function hideSuccess() {
+            document.getElementById('successModal').style.display = 'none';
+            // Clear form
+            document.getElementById('title').value = '';
+            document.getElementById('description').value = '';
+            document.getElementById('content').value = '';
+            document.getElementById('output').classList.remove('show');
+        }
+
+        // GitHub API publish function
+        async function publishToGitHub() {
+            const title = document.getElementById('title').value.trim();
+            const description = document.getElementById('description').value.trim() || title;
+            const content = document.getElementById('content').value.trim();
+            
+            if (!title || !content) {
+                document.getElementById('status').innerHTML = '<div class="status error">Vui lòng nhập tiêu đề và nội dung!</div>';
+                return;
+            }
+
+            const token = localStorage.getItem('github_token');
+            if (!token) {
+                showSettings();
+                return;
+            }
+
+            // Generate HTML first
+            const slug = title.toLowerCase()
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^\w\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .trim();
+            const filename = slug + '.html';
+            const date = new Date().toISOString().split('T')[0];
+            const dateDisplay = new Date().toLocaleDateString('vi-VN');
+            const readTime = Math.max(1, Math.ceil(content.split(/\s+/).length / 200));
+            
+            const paragraphs = content.split('\n\n').filter(p => p.trim());
+            let htmlContent = '';
+            paragraphs.forEach(p => {
+                if (p.startsWith('>')) {
+                    htmlContent += `<blockquote>"${p.substring(1).trim()}"</blockquote>\n`;
+                } else {
+                    htmlContent += `<p>${p.replace(/\n/g, '<br>')}</p>\n`;
+                }
+            });
+
+            const fullHTML = `<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${title} — Triết Học Mỗi Ngày</title>
+    <meta name="description" content="${description}">
+    <meta property="og:title" content="${title}">
+    <meta property="og:description" content="${description}">
+    <link rel="canonical" href="https://canneed02.github.io/triet-hoc-moi-ngay/${filename}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
+    <style>
+        :root { --bg: #F5F5F0; --text: #1A1A1A; --text-light: #4A4A4A; --text-muted: #8A8A8A; --border: #E8E8E8; --accent: #2D2D2D; --font-display: 'Playfair Display', 'Georgia', serif; --font-body: 'Cormorant Garamond', 'Georgia', serif; --font-sans: 'Inter', -apple-system, sans-serif; --space-xs: 8px; --space-sm: 16px; --space-md: 24px; --space-lg: 32px; --space-xl: 48px; --space-2xl: 64px; --space-3xl: 96px; --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1); --transition-fast: 0.2s var(--ease-smooth); --transition-smooth: 0.4s var(--ease-smooth); }
+        [data-theme="dark"] { --bg: #0A0A0A; --text: #E0E0E0; --text-light: #A0A0A0; --text-muted: #555555; --border: #1A1A1A; --accent: #F0F0F0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; opacity: 0.025; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); }
+        body { font-family: var(--font-body); font-size: 18px; line-height: 1.75; color: var(--text); background: var(--bg); min-height: 100vh; transition: background-color 0.6s var(--ease-smooth), color 0.6s var(--ease-smooth); }
+        .scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 2px; background: var(--accent); opacity: 0.4; z-index: 10000; transition: width 0.1s linear; }
+        .container { max-width: 680px; margin: 0 auto; padding: var(--space-3xl) var(--space-md) var(--space-2xl); }
+        .back { display: inline-block; margin-bottom: var(--space-xl); color: var(--text-muted); text-decoration: none; font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 400; opacity: 0.6; transition: opacity var(--transition-fast); }
+        .back:hover { opacity: 1; }
+        h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 400; line-height: 1.2; margin-bottom: var(--space-xs); letter-spacing: -0.02em; }
+        .meta { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-xl); }
+        .date { font-family: var(--font-sans); color: var(--text-muted); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 300; opacity: 0.6; }
+        .read-time { font-family: var(--font-sans); color: var(--text-muted); font-size: 0.65rem; letter-spacing: 0.1em; font-weight: 300; opacity: 0.5; }
+        p { margin-bottom: var(--space-md); text-align: justify; font-size: 1.1rem; color: var(--text-light); line-height: 1.85; orphans: 3; widows: 3; }
+        p:first-of-type::first-letter { font-family: var(--font-display); font-size: 4.5em; float: left; line-height: 0.75; margin-right: 0.12em; margin-top: 0.1em; font-weight: 400; }
+        blockquote { border-left: 2px solid var(--accent); padding-left: var(--space-md); margin: var(--space-lg) 0; font-style: italic; color: var(--text-light); opacity: 0.85; }
+        footer { margin-top: var(--space-2xl); padding-top: var(--space-md); text-align: center; font-family: var(--font-sans); color: var(--text-muted); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 300; opacity: 0.5; }
+        .theme-toggle { position: fixed; top: var(--space-md); right: var(--space-md); background: none; border: none; color: var(--text-muted); padding: var(--space-xs) var(--space-sm); font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; opacity: 0.5; transition: opacity var(--transition-fast), transform var(--transition-smooth); z-index: 100; }
+        .theme-toggle:hover { opacity: 1; }
+        .theme-toggle:active { transform: scale(0.95); }
+        ::selection { background: var(--accent); color: var(--bg); }
+        [data-theme="dark"] ::selection { background: #E0E0E0; color: #0A0A0A; }
+        .related { margin-top: var(--space-2xl); padding-top: var(--space-lg); border-top: 1px solid var(--border); }
+        .related h3 { font-family: var(--font-sans); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: var(--space-md); opacity: 0.6; }
+        .related a { display: block; color: var(--text); text-decoration: none; font-family: var(--font-display); font-size: 1.1rem; margin-bottom: var(--space-sm); transition: opacity var(--transition-fast); }
+        .related a:hover { opacity: 0.6; }
+        @media (max-width: 600px) { .container { padding: var(--space-2xl) var(--space-sm) var(--space-xl); } p:first-of-type::first-letter { font-size: 3.5em; } }
+    </style>
+</head>
+<body>
+    <div class="scroll-progress" id="progress"></div>
+    <button class="theme-toggle" onclick="toggleTheme()">Dark</button>
+    <div class="container">
+        <a href="index.html" class="back">← Trang chủ</a>
+        <h1>${title}</h1>
+        <div class="meta"><time class="date" datetime="${date}">${dateDisplay}</time><span class="read-time">• ${readTime} phút đọc</span></div>
+        ${htmlContent}
+        <div class="related">
+            <h3>Bài viết liên quan</h3>
+            <a href="the-sphere.html">→ Đứa Trẻ Trong Quả Cầu Kính</a>
+            <a href="death-meditation.html">→ Thiền Về Cái Chết</a>
+        </div>
+        <footer><p>© 2026 Triết Học Mỗi Ngày</p></footer>
+    </div>
+    <script>
+        window.addEventListener('scroll', () => { const winScroll = document.body.scrollTop || document.documentElement.scrollTop; const height = document.documentElement.scrollHeight - document.documentElement.clientHeight; document.getElementById('progress').style.width = (winScroll / height) * 100 + '%'; });
+        function toggleTheme() { const html = document.documentElement; const btn = document.querySelector('.theme-toggle'); html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); btn.textContent = html.getAttribute('data-theme') === 'dark' ? 'Light' : 'Dark'; localStorage.setItem('theme', html.getAttribute('data-theme')); }
+        if (localStorage.getItem('theme') === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); document.querySelector('.theme-toggle').textContent = 'Light'; }
+    <\/script>
+</body>
+</html>`;
+
+            // Update button
+            const btn = document.getElementById('btnPublish');
+            btn.disabled = true;
+            btn.innerText = '⏳ Đang đăng...';
+
+            const REPO_OWNER = 'canneed02';
+            const REPO_NAME = 'triet-hoc-moi-ngay';
+            const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filename}`;
+
+            // Encode to base64
+            const encodedContent = btoa(unescape(encodeURIComponent(fullHTML)));
+
+            try {
+                const response = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: `Thêm bài: ${title}`,
+                        content: encodedContent
+                    })
+                });
+
+                if (response.ok) {
+                    document.getElementById('successModal').style.display = 'flex';
+                } else {
+                    const errorData = await response.json();
+                    alert('❌ Lỗi: ' + errorData.message);
+                    btn.disabled = false;
+                    btn.innerText = 'Đăng bài lên web';
+                }
+            } catch (error) {
+                alert('❌ Lỗi mạng: ' + error);
+                btn.disabled = false;
+                btn.innerText = 'Đăng bài lên web';
+            }
         }
     </script>
 </body>
