@@ -4,11 +4,11 @@ title: Bài viết
 ---
 
 {% for post in site.posts %}
-<article>
+<div class="post-preview">
     <div class="meta">
         <time class="date" datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | date: "%d/%m/%Y" }}</time>
     </div>
     <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-    <p class="post-excerpt">{{ post.description | default: post.excerpt | strip_html | truncate: 80 }}</p>
-</article>
+    <p class="excerpt">{{ post.description | default: post.excerpt | strip_html | truncate: 80 }}</p>
+</div>
 {% endfor %}
