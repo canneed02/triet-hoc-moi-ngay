@@ -13,79 +13,274 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
     <style>
-        :root { --bg: #F5F5F0; --text: #1A1A1A; --text-light: #4A4A4A; --text-muted: #8A8A8A; --border: #E8E8E8; --accent: #2D2D2D; --font-display: 'Playfair Display', 'Georgia', serif; --font-body: 'Cormorant Garamond', 'Georgia', serif; --font-sans: 'Inter', -apple-system, sans-serif; --space-xs: 8px; --space-sm: 16px; --space-md: 24px; --space-lg: 32px; --space-xl: 48px; --space-2xl: 64px; --space-3xl: 96px; --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1); --transition-fast: 0.2s var(--ease-smooth); --transition-smooth: 0.4s var(--ease-smooth); }
-        [data-theme="dark"] { --bg: #0A0A0A; --text: #E0E0E0; --text-light: #A0A0A0; --text-muted: #555555; --border: #1A1A1A; --accent: #F0F0F0; }
-        * { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
-        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; opacity: 0.025; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); }
-        body { font-family: var(--font-body); font-size: 18px; line-height: 1.75; color: var(--text); background: var(--bg); min-height: 100vh; transition: background-color 0.6s var(--ease-smooth), color 0.6s var(--ease-smooth); }
-        .scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 2px; background: var(--accent); opacity: 0.4; z-index: 10000; transition: width 0.1s linear; }
-        .container { max-width: 680px; margin: 0 auto; padding: var(--space-3xl) var(--space-md) var(--space-2xl); }
+        /* ============================================
+           CSS VARIABLES & THEME
+           ============================================ */
+        :root { 
+            --bg: #F5F5F0; 
+            --text: #1A1A1A; 
+            --text-light: #4A4A4A; 
+            --text-muted: #8A8A8A; 
+            --border: #E8E8E8; 
+            --accent: #2D2D2D; 
+            --selection-bg: #888888;
+            --selection-text: #ffffff;
+            --font-display: 'Playfair Display', 'Georgia', serif; 
+            --font-body: 'Cormorant Garamond', 'Georgia', serif; 
+            --font-sans: 'Inter', -apple-system, sans-serif; 
+            --space-xs: 8px; --space-sm: 16px; --space-md: 24px; --space-lg: 32px; --space-xl: 48px; --space-2xl: 64px; --space-3xl: 96px; 
+            --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1); 
+            --transition-fast: 0.2s var(--ease-smooth); 
+            --transition-smooth: 0.4s var(--ease-smooth); 
+        }
         
-        /* Header */
+        [data-theme="dark"] { 
+            --bg: #0A0A0A; 
+            --text: #E0E0E0; 
+            --text-light: #A0A0A0; 
+            --text-muted: #555555; 
+            --border: #1A1A1A; 
+            --accent: #F0F0F0; 
+            --selection-bg: #444444;
+            --selection-text: #ffffff;
+        }
+        
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        * { margin: 0; padding: 0; box-sizing: border-box; } 
+        html { scroll-behavior: smooth; }
+        
+        /* ============================================
+           CSS NOISE - Paper Texture Effect
+           ============================================ */
+        body::before { 
+            content: ''; 
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            pointer-events: none; 
+            z-index: 9999; 
+            opacity: 0.02; 
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); 
+        }
+        
+        body { 
+            font-family: var(--font-body); 
+            font-size: 18px; 
+            line-height: 1.75; 
+            color: var(--text); 
+            background: var(--bg); 
+            min-height: 100vh; 
+            transition: background-color 0.6s var(--ease-smooth), color 0.6s var(--ease-smooth); 
+        }
+        
+        /* ============================================
+           SCROLL PROGRESS
+           ============================================ */
+        .scroll-progress { 
+            position: fixed; top: 0; left: 0; 
+            width: 0%; height: 2px; 
+            background: var(--accent); 
+            opacity: 0.4; z-index: 10000; 
+            transition: width 0.1s linear; 
+        }
+        
+        .container { 
+            max-width: 680px; 
+            margin: 0 auto; 
+            padding: var(--space-3xl) var(--space-md) var(--space-2xl); 
+        }
+        
+        /* ============================================
+           HEADER
+           ============================================ */
         header { text-align: center; margin-bottom: var(--space-3xl); }
-        header h1 { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: var(--space-sm); }
-        .subtitle { font-family: var(--font-sans); color: var(--text-muted); font-size: 0.75rem; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; }
+        header h1 { 
+            font-family: var(--font-display); 
+            font-size: clamp(2rem, 5vw, 3rem); 
+            font-weight: 400; 
+            letter-spacing: -0.02em; 
+            line-height: 1.2; 
+            margin-bottom: var(--space-sm); 
+        }
+        .subtitle { 
+            font-family: var(--font-sans); 
+            color: var(--text-muted); 
+            font-size: 0.75rem; 
+            font-weight: 300; 
+            letter-spacing: 0.15em; 
+            text-transform: uppercase; 
+        }
         
-        /* Navigation */
-        nav { display: flex; justify-content: center; gap: var(--space-xl); margin-bottom: var(--space-2xl); padding-bottom: var(--space-md); font-family: var(--font-sans); }
-        nav a { color: var(--text-muted); text-decoration: none; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 400; position: relative; transition: color var(--transition-fast); }
-        nav a::after { content: ''; position: absolute; width: 100%; transform: scaleX(0); height: 1px; bottom: -6px; left: 0; background-color: currentColor; transform-origin: right; transition: transform var(--transition-smooth); }
+        /* ============================================
+           NAVIGATION
+           ============================================ */
+        nav { 
+            display: flex; 
+            justify-content: center; 
+            gap: var(--space-xl); 
+            margin-bottom: var(--space-2xl); 
+            padding-bottom: var(--space-md); 
+            font-family: var(--font-sans); 
+        }
+        nav a { 
+            color: var(--text-muted); 
+            text-decoration: none; 
+            font-size: 0.7rem; 
+            letter-spacing: 0.2em; 
+            text-transform: uppercase; 
+            font-weight: 400; 
+            position: relative; 
+            transition: color var(--transition-fast); 
+        }
+        nav a::after { 
+            content: ''; 
+            position: absolute; 
+            width: 100%; 
+            transform: scaleX(0); 
+            height: 1px; 
+            bottom: -6px; left: 0; 
+            background-color: currentColor; 
+            transform-origin: right; 
+            transition: transform var(--transition-smooth); 
+        }
         nav a:hover, nav a.active { color: var(--text); }
         nav a:hover::after, nav a.active::after { transform: scaleX(1); transform-origin: left; }
         
-        /* Theme Toggle */
-        .theme-toggle { position: fixed; top: var(--space-md); right: var(--space-md); background: none; border: none; color: var(--text-muted); padding: var(--space-xs) var(--space-sm); font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; opacity: 0.5; transition: opacity var(--transition-fast), transform var(--transition-smooth); z-index: 100; }
+        /* ============================================
+           THEME TOGGLE
+           ============================================ */
+        .theme-toggle { 
+            position: fixed; top: var(--space-md); right: var(--space-md); 
+            background: none; border: none; 
+            color: var(--text-muted); 
+            padding: var(--space-xs) var(--space-sm); 
+            font-family: var(--font-sans); 
+            font-size: 0.65rem; 
+            letter-spacing: 0.15em; 
+            text-transform: uppercase; 
+            cursor: pointer; 
+            opacity: 0.5; 
+            transition: opacity var(--transition-fast), transform var(--transition-smooth); 
+            z-index: 100; 
+        }
         .theme-toggle:hover { opacity: 1; }
         .theme-toggle:active { transform: scale(0.95); }
         
-        /* Back Link */
-        .back { display: inline-block; margin-bottom: var(--space-xl); color: var(--text-muted); text-decoration: none; font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 400; opacity: 0.6; transition: opacity var(--transition-fast); }
+        /* ============================================
+           BACK LINK
+           ============================================ */
+        .back { 
+            display: inline-block; 
+            margin-bottom: var(--space-xl); 
+            color: var(--text-muted); 
+            text-decoration: none; 
+            font-family: var(--font-sans); 
+            font-size: 0.65rem; 
+            letter-spacing: 0.2em; 
+            text-transform: uppercase; 
+            font-weight: 400; 
+            opacity: 0.6; 
+            transition: opacity var(--transition-fast); 
+        }
         .back:hover { opacity: 1; }
         
-        /* Typography */
-        h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 400; line-height: 1.2; margin-bottom: var(--space-xs); letter-spacing: -0.02em; }
-        .meta { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-xl); }
-        .date { font-family: var(--font-sans); color: var(--text-muted); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 300; opacity: 0.6; }
-        .read-time { font-family: var(--font-sans); color: var(--text-muted); font-size: 0.65rem; letter-spacing: 0.1em; font-weight: 300; opacity: 0.5; }
+        /* ============================================
+           TYPOGRAPHY
+           ============================================ */
+        h1 { 
+            font-family: var(--font-display); 
+            font-size: clamp(1.8rem, 4vw, 2.5rem); 
+            font-weight: 400; 
+            line-height: 1.2; 
+            margin-bottom: var(--space-xs); 
+            letter-spacing: -0.02em; 
+        }
+        .meta { 
+            display: flex; 
+            align-items: center; 
+            gap: var(--space-sm); 
+            margin-bottom: var(--space-xl); 
+        }
+        .date { 
+            font-family: var(--font-sans); 
+            color: var(--text-muted); 
+            font-size: 0.65rem; 
+            letter-spacing: 0.2em; 
+            text-transform: uppercase; 
+            font-weight: 300; 
+            opacity: 0.6; 
+        }
         
-        /* Article List */
-        article { margin-bottom: var(--space-2xl); padding-bottom: var(--space-xl); border-bottom: 1px solid var(--border); }
+        /* ============================================
+           ARTICLE LIST
+           ============================================ */
+        article { 
+            margin-bottom: var(--space-2xl); 
+            padding-bottom: var(--space-xl); 
+            border-bottom: 1px solid var(--border); 
+        }
         article:last-child { border-bottom: none; }
-        article h2 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 400; line-height: 1.35; margin-bottom: var(--space-xs); }
-        article h2 a { color: var(--text); text-decoration: none; position: relative; transition: opacity var(--transition-fast); }
-        article h2 a::after { content: ''; position: absolute; width: 100%; transform: scaleX(0); height: 1px; bottom: 2px; left: 0; background-color: currentColor; transform-origin: right; transition: transform var(--transition-smooth); }
+        article h2 { 
+            font-family: var(--font-display); 
+            font-size: 1.5rem; 
+            font-weight: 400; 
+            line-height: 1.35; 
+            margin-bottom: var(--space-xs); 
+        }
+        article h2 a { 
+            color: var(--text); 
+            text-decoration: none; 
+            position: relative; 
+            transition: opacity var(--transition-fast); 
+        }
+        article h2 a::after { 
+            content: ''; 
+            position: absolute; 
+            width: 100%; 
+            transform: scaleX(0); 
+            height: 1px; 
+            bottom: 2px; left: 0; 
+            background-color: currentColor; 
+            transform-origin: right; 
+            transition: transform var(--transition-smooth); 
+        }
         article h2 a:hover::after { transform: scaleX(1); transform-origin: left; }
         article h2 a:hover { opacity: 0.7; }
         
-        /* Post List Animation */
-        .post-list article { animation: fadeIn 1s var(--ease-smooth); animation-fill-mode: both; }
+        /* ============================================
+           POST LIST ANIMATION
+           ============================================ */
+        .post-list article { 
+            animation: fadeIn 1s var(--ease-smooth); 
+            animation-fill-mode: both; 
+        }
         .post-list article:nth-child(1) { animation-delay: 0.1s; }
         .post-list article:nth-child(2) { animation-delay: 0.2s; }
         .post-list article:nth-child(3) { animation-delay: 0.3s; }
         .post-list article:nth-child(4) { animation-delay: 0.4s; }
         .post-list article:nth-child(5) { animation-delay: 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* Paragraphs - Base Style */
-        p { margin-bottom: var(--space-md); text-align: justify; font-size: 1.1rem; color: var(--text-light); line-height: 1.85; orphans: 3; widows: 3; }
-        
-        /* ============================================
-           DROP CAP - CHỈ ÁP DỤNG CHO POST CONTENT
-           ============================================ */
-        /* Drop cap CHỈ áp dụng cho .post-content > p:first-of-type */
-        /* Không áp dụng cho .post-excerpt hoặc bất kỳ thẻ nào khác */
-        .post-content > p:first-of-type::first-letter {
-            font-family: var(--font-display);
-            font-size: 4.5em;
-            float: left;
-            line-height: 0.75;
-            margin-right: 0.12em;
-            margin-top: 0.1em;
-            font-weight: 400;
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
         }
         
-        /* EXCERPT - KHÔNG CÓ DROP CAP */
-        /* Đảm bảo excerpt hiển thị bình thường */
+        /* ============================================
+           PARAGRAPHS - BASE STYLE
+           ============================================ */
+        p { 
+            margin-bottom: var(--space-md); 
+            text-align: justify; 
+            font-size: 1.1rem; 
+            color: var(--text-light); 
+            line-height: 1.85; 
+            orphans: 3; widows: 3; 
+        }
+        
+        /* ============================================
+           POST EXCERPT - NO DROP CAP
+           ============================================ */
         .post-excerpt {
             font-size: 1rem;
             color: var(--text-light);
@@ -98,27 +293,108 @@
             margin: 0 !important;
         }
         
-        /* Blockquote */
-        blockquote { border-left: 2px solid var(--accent); padding-left: var(--space-md); margin: var(--space-lg) 0; font-style: italic; color: var(--text-light); opacity: 0.85; }
+        /* ============================================
+           POST BODY - Full Article Content
+           ============================================ */
+        .post-body {
+            max-width: 65ch;        /* ~65 characters for optimal reading */
+            margin: 0 auto;         /* Center the content */
+        }
         
-        /* Footer */
-        footer { margin-top: var(--space-3xl); padding-top: var(--space-lg); text-align: center; font-family: var(--font-sans); color: var(--text-muted); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 300; opacity: 0.6; }
-        .divider { width: 32px; height: 1px; background: var(--border); margin: 0 auto var(--space-lg); }
+        /* DROP CAP - CHỈ ÁP DỤNG TRONG .post-body */
+        /* Tuyệt đối không được tác động ra ngoài */
+        .post-body > p:first-of-type::first-letter {
+            font-family: var(--font-display);
+            font-size: 4.5em;
+            float: left;
+            line-height: 0.75;
+            margin-right: 0.12em;
+            margin-top: 0.1em;
+            font-weight: 400;
+            color: var(--text);
+        }
         
-        /* Selection */
-        ::selection { background: var(--accent); color: var(--bg); }
-        [data-theme="dark"] ::selection { background: #E0E0E0; color: #0A0A0A; }
+        /* Increase line-height in post body for better readability */
+        .post-body p {
+            line-height: 1.7;
+        }
         
-        /* Related Posts */
-        .related { margin-top: var(--space-2xl); padding-top: var(--space-lg); border-top: 1px solid var(--border); }
-        .related h3 { font-family: var(--font-sans); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: var(--space-md); opacity: 0.6; }
-        .related a { display: block; color: var(--text); text-decoration: none; font-family: var(--font-display); font-size: 1.1rem; margin-bottom: var(--space-sm); transition: opacity var(--transition-fast); }
+        /* ============================================
+           BLOCKQUOTE
+           ============================================ */
+        blockquote { 
+            border-left: 2px solid var(--accent); 
+            padding-left: var(--space-md); 
+            margin: var(--space-lg) 0; 
+            font-style: italic; 
+            color: var(--text-light); 
+            opacity: 0.85; 
+        }
+        
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer { 
+            margin-top: var(--space-3xl); 
+            padding-top: var(--space-lg); 
+            text-align: center; 
+            font-family: var(--font-sans); 
+            color: var(--text-muted); 
+            font-size: 0.65rem; 
+            letter-spacing: 0.2em; 
+            text-transform: uppercase; 
+            font-weight: 300; 
+            opacity: 0.6; 
+        }
+        .divider { 
+            width: 32px; height: 1px; 
+            background: var(--border); 
+            margin: 0 auto var(--space-lg); 
+        }
+        
+        /* ============================================
+           SELECTION COLOR - Custom Dark Gray
+           ============================================ */
+        ::selection { 
+            background: var(--selection-bg); 
+            color: var(--selection-text); 
+        }
+        
+        /* ============================================
+           RELATED POSTS
+           ============================================ */
+        .related { 
+            margin-top: var(--space-2xl); 
+            padding-top: var(--space-lg); 
+            border-top: 1px solid var(--border); 
+        }
+        .related h3 { 
+            font-family: var(--font-sans); 
+            font-size: 0.7rem; 
+            letter-spacing: 0.2em; 
+            text-transform: uppercase; 
+            color: var(--text-muted); 
+            margin-bottom: var(--space-md); 
+            opacity: 0.6; 
+        }
+        .related a { 
+            display: block; 
+            color: var(--text); 
+            text-decoration: none; 
+            font-family: var(--font-display); 
+            font-size: 1.1rem; 
+            margin-bottom: var(--space-sm); 
+            transition: opacity var(--transition-fast); 
+        }
         .related a:hover { opacity: 0.6; }
         
-        /* Mobile */
+        /* ============================================
+           MOBILE RESPONSIVE
+           ============================================ */
         @media (max-width: 600px) { 
             .container { padding: var(--space-2xl) var(--space-sm) var(--space-xl); } 
-            .post-content > p:first-of-type::first-letter { font-size: 3.5em; }
+            .post-body > p:first-of-type::first-letter { font-size: 3.5em; }
+            .post-body { max-width: 100%; }  /* Full width on mobile */
             nav { gap: var(--space-md); } 
         }
     </style>
@@ -134,9 +410,9 @@
         <div class="meta">
             <time class="date" datetime="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date: "%d/%m/%Y" }}</time>
         </div>
-        <div class="post-content">
+        <article class="post-body">
             {{ content }}
-        </div>
+        </article>
         {% else %}
         <!-- Trang chủ và các trang khác -->
         <header>
@@ -155,7 +431,7 @@
         <footer>
             <div class="divider"></div>
             <p>© 2026 Triết Học Mỗi Ngày</p>
-            <p style="margin-top: var(--space-xs);">Viết cho những ai đang tỉnh</p>
+            <p style="margin-top: var(--space-xs);">Viết ai đang tỉnh</p>
         </footer>
     </div>
     <script>
@@ -167,9 +443,10 @@
         function toggleTheme() { 
             const html = document.documentElement; 
             const btn = document.querySelector('.theme-toggle'); 
-            html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); 
-            btn.textContent = html.getAttribute('data-theme') === 'dark' ? 'Light' : 'Dark'; 
-            localStorage.setItem('theme', html.getAttribute('data-theme')); 
+            const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme); 
+            btn.textContent = newTheme === 'dark' ? 'Light' : 'Dark'; 
+            localStorage.setItem('theme', newTheme); 
         }
         if (localStorage.getItem('theme') === 'dark') { 
             document.documentElement.setAttribute('data-theme', 'dark'); 
