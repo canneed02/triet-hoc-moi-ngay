@@ -102,7 +102,7 @@ article h2 a:hover { opacity: 0.7; }
 p { margin-bottom: var(--space-md); text-align: justify; font-size: 1.1rem; color: var(--text-light); line-height: 1.85; orphans: 3; widows: 3; }
 
 /* ============================================
-   LINKS - Minimalist Reset
+   LINKS - Minimalist Reset (AGGRESSIVE)
    ============================================ */
 a { 
     text-decoration: none !important; 
@@ -111,6 +111,34 @@ a {
 }
 a:hover { 
     opacity: 0.7; 
+}
+
+/* Tiêu diệt màu tím và gạch chân */
+h1 a, h2 a, h3 a, .post-preview a, .post-list a {
+    text-decoration: none !important;
+    color: var(--text) !important;
+    border-bottom: none !important;
+}
+
+/* Khóa trạng thái đã truy cập */
+h1 a:visited, h2 a:visited, h3 a:visited, .post-preview a:visited, .post-list a:visited {
+    color: var(--text) !important;
+}
+
+/* Hiệu ứng Hover sang trọng */
+h1 a:hover, h2 a:hover, h3 a:hover, .post-preview a:hover, .post-list a:hover {
+    opacity: 0.6 !important;
+    text-decoration: none !important;
+}
+
+/* Khoảng cách bài viết */
+.post-preview {
+    margin-bottom: 4rem !important;
+    padding-bottom: 2rem !important;
+    border-bottom: 1px solid var(--border);
+}
+.post-preview:last-child {
+    border-bottom: none;
 }
 
 /* POST PREVIEW / EXCERPT - NO DROP CAP */
