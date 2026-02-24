@@ -20,6 +20,7 @@
             --text-light: #4a4a4a;
             --text-muted: #8a8a8a;
             --border: #e8e8e8;
+            --accent: #2a2a2a;
             --font-display: 'Playfair Display', 'Georgia', serif;
             --font-body: 'Cormorant Garamond', 'Georgia', serif;
             --font-sans: 'Inter', sans-serif;
@@ -32,11 +33,26 @@
             --text-light: #a0a0a0;
             --text-muted: #555555;
             --border: #1a1a1a;
+            --accent: #f0f0f0;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         html { scroll-behavior: smooth; }
+        
+        /* Noise Texture */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
         
         body {
             font-family: var(--font-body);
@@ -48,13 +64,25 @@
             transition: background-color 0.6s var(--ease-smooth), color 0.6s var(--ease-smooth);
         }
         
+        /* Scroll Progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--text-muted);
+            opacity: 0.3;
+            z-index: 10000;
+            transition: width 0.1s linear;
+        }
+        
         .container {
-            max-width: 68ch;
+            max-width: 65ch;
             margin: 0 auto;
             padding: 18vh 24px 12vh;
         }
         
-        /* Header */
         header {
             text-align: center;
             margin-bottom: 16vh;
@@ -73,7 +101,6 @@
             letter-spacing: -0.03em;
             line-height: 1.1;
             margin-bottom: 1rem;
-            color: var(--text);
         }
         
         .subtitle {
@@ -86,7 +113,6 @@
             opacity: 0.7;
         }
         
-        /* Navigation */
         nav {
             display: flex;
             justify-content: center;
@@ -124,7 +150,6 @@
         nav a:hover { opacity: 1; }
         nav a:hover::after { transform: scaleX(1); transform-origin: left; }
         
-        /* Theme Toggle */
         .theme-toggle {
             position: fixed;
             top: 2rem;
@@ -139,13 +164,12 @@
             text-transform: uppercase;
             cursor: pointer;
             opacity: 0.4;
-            transition: opacity 0.3s, color 0.3s;
+            transition: opacity 0.3s;
             z-index: 100;
         }
         
         .theme-toggle:hover { opacity: 1; }
         
-        /* Articles */
         article {
             margin-bottom: 5rem;
             animation: fadeIn 1s var(--ease-smooth);
@@ -189,25 +213,38 @@
         article h2 a:hover::after { transform: scaleX(1); transform-origin: left; }
         article h2 a:hover { opacity: 0.7; }
         
+        article .meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
         article .date {
             font-family: var(--font-sans);
             color: var(--text-muted);
             font-size: 0.65rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            margin-bottom: 1rem;
             font-weight: 300;
             opacity: 0.5;
+        }
+        
+        article .read-time {
+            font-family: var(--font-sans);
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            font-weight: 300;
+            opacity: 0.4;
         }
         
         article p {
             color: var(--text-light);
             font-size: 1.05rem;
             line-height: 1.9;
-            transition: color 0.3s;
         }
         
-        /* Footer */
         footer {
             margin-top: 16vh;
             padding-top: 3rem;
@@ -228,7 +265,17 @@
             margin: 0 auto 2rem;
         }
         
-        /* Responsive */
+        /* Text Selection */
+        ::selection {
+            background: var(--text);
+            color: var(--bg);
+        }
+        
+        [data-theme="dark"] ::selection {
+            background: #e0e0e0;
+            color: #0a0a0a;
+        }
+        
         @media (max-width: 600px) {
             .container { padding: 14vh 20px 8vh; }
             nav { gap: 1.5rem; }
@@ -237,7 +284,8 @@
     </style>
 </head>
 <body>
-    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">Dark</button>
+    <div class="scroll-progress" id="progress"></div>
+    <button class="theme-toggle" onclick="toggleTheme()">Dark</button>
     
     <div class="container">
         <header>
@@ -253,31 +301,46 @@
         
         <main>
             <article>
-                <p class="date">24/02/2026</p>
+                <div class="meta">
+                    <time class="date" datetime="2026-02-24">24/02/2026</time>
+                    <span class="read-time">• 3 phút đọc</span>
+                </div>
                 <h2><a href="the-sphere.html">Đứa Trẻ Trong Quả Cầu Kính</a></h2>
                 <p>Một đứa trẻ được sinh ra trong một quả cầu kính. Quả cầu ấy là mẹ của nó...</p>
             </article>
             
             <article>
-                <p class="date">23/02/2026</p>
+                <div class="meta">
+                    <time class="date" datetime="2026-02-23">23/02/2026</time>
+                    <span class="read-time">• 3 phút đọc</span>
+                </div>
                 <h2><a href="money-story.html">Chuyện Tiền</a></h2>
                 <p>Tiền không phải giấy. Tiền là niềm tin. Khi niềm tin sụp đổ, tiền chỉ là giấy...</p>
             </article>
             
             <article>
-                <p class="date">22/02/2026</p>
+                <div class="meta">
+                    <time class="date" datetime="2026-02-22">22/02/2026</time>
+                    <span class="read-time">• 4 phút đọc</span>
+                </div>
                 <h2><a href="death-meditation.html">Thiền Về Cái Chết</a></h2>
                 <p>Cái chết không phải kẻ thù. Cái chết là người thầy cuối cùng của đời người...</p>
             </article>
             
             <article>
-                <p class="date">21/02/2026</p>
+                <div class="meta">
+                    <time class="date" datetime="2026-02-21">21/02/2026</time>
+                    <span class="read-time">• 3 phút đọc</span>
+                </div>
                 <h2><a href="three-million.html">Lương Ba Triệu</a></h2>
                 <p>Lương ba triệu về quê ăn tết. Câu hát viral nhất mùa Tết 2026...</p>
             </article>
             
             <article>
-                <p class="date">20/02/2026</p>
+                <div class="meta">
+                    <time class="date" datetime="2026-02-20">20/02/2026</time>
+                    <span class="read-time">• 3 phút đọc</span>
+                </div>
                 <h2><a href="lonely-whale.html">Cá Voi Cô Đơn</a></h2>
                 <p>Có những người giống như con cá voi 52 hertz — phát ra tần số không ai hiểu...</p>
             </article>
@@ -291,24 +354,25 @@
     </div>
     
     <script>
+        // Scroll Progress
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progress').style.width = scrolled + '%';
+        });
+        
+        // Theme Toggle
         function toggleTheme() {
             const html = document.documentElement;
             const btn = document.querySelector('.theme-toggle');
-            
-            if (html.getAttribute('data-theme') === 'dark') {
-                html.setAttribute('data-theme', 'light');
-                btn.textContent = 'Dark';
-                localStorage.setItem('theme', 'light');
-            } else {
-                html.setAttribute('data-theme', 'dark');
-                btn.textContent = 'Light';
-                localStorage.setItem('theme', 'dark');
-            }
+            html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+            btn.textContent = html.getAttribute('data-theme') === 'dark' ? 'Light' : 'Dark';
+            localStorage.setItem('theme', html.getAttribute('data-theme'));
         }
         
         // Load saved theme
-        const saved = localStorage.getItem('theme');
-        if (saved === 'dark') {
+        if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.setAttribute('data-theme', 'dark');
             document.querySelector('.theme-toggle').textContent = 'Light';
         }
