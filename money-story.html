@@ -4,45 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chuyện Tiền — Triết Học Mỗi Ngày</title>
-    <meta name="description" content="Tiền không phải giấy. Tiền là niềm tin.">
+    <meta name="description" content="Tiền không phải giấy. Tiền là niềm tin. Khi niềm tin sụp đổ, tiền chỉ là giấy. Nhưng cũng đừng quên: tiền là công cụ.">
+    <meta property="og:title" content="Chuyện Tiền">
+    <meta property="og:description" content="Tiền không phải giấy. Tiền là niềm tin.">
+    <link rel="canonical" href="https://canneed02.github.io/triet-hoc-moi-ngay/money-story.html">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
     <style>
-        :root { --bg: #FAF9F6; --text: #2C2C2C; --text-light: #555555; --text-muted: #999999; --border: #EAEAEA; --font-serif: 'Lora', 'Georgia', serif; --font-sans: 'Inter', sans-serif; }
-        [data-theme="dark"] { --bg: #1a1a1a; --text: #E8E8E8; --text-light: #AAAAAA; --text-muted: #666666; --border: #333333; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: var(--font-serif); font-size: 19px; line-height: 1.85; color: var(--text); background: var(--bg); min-height: 100vh; transition: background 0.3s, color 0.3s; }
-        .container { max-width: 680px; margin: 0 auto; padding: 100px 24px 80px; }
-        .back { display: inline-block; margin-bottom: 64px; color: var(--text-muted); text-decoration: none; font-family: var(--font-sans); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 400; transition: color 0.3s; }
-        .back:hover { color: var(--text); }
-        h1 { font-size: 1.7rem; font-weight: 400; line-height: 1.4; margin-bottom: 10px; }
-        .date { font-family: var(--font-sans); color: var(--text-muted); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 56px; font-weight: 300; }
-        p { margin-bottom: 30px; text-align: justify; font-size: 1.05rem; color: var(--text-light); line-height: 1.9; }
-        p:first-of-type::first-letter { font-size: 4em; float: left; line-height: 0.75; margin-right: 0.12em; margin-top: 0.1em; font-family: Lora, Georgia, serif; }
-        footer { margin-top: 100px; padding-top: 32px; border-top: 1px solid var(--border); text-align: center; font-family: var(--font-sans); color: var(--text-muted); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 300; }
-        .theme-toggle { position: fixed; top: 24px; right: 24px; background: none; border: 1px solid var(--border); color: var(--text-muted); padding: 8px 16px; font-family: var(--font-sans); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; border-radius: 4px; transition: all 0.3s; }
-        .theme-toggle:hover { border-color: var(--text); color: var(--text); }
-        @media (max-width: 600px) { .container { padding: 60px 20px 40px; } h1 { font-size: 1.4rem; } body { font-size: 18px; } }
+        :root { --bg: #F5F5F0; --text: #1A1A1A; --text-light: #4A4A4A; --text-muted: #8A8A8A; --border: #E8E8E8; --accent: #2D2D2D; --font-display: 'Playfair Display', 'Georgia', serif; --font-body: 'Cormorant Garamond', 'Georgia', serif; --font-sans: 'Inter', -apple-system, sans-serif; --space-xs: 8px; --space-sm: 16px; --space-md: 24px; --space-lg: 32px; --space-xl: 48px; --space-2xl: 64px; --space-3xl: 96px; --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1); --transition-fast: 0.2s var(--ease-smooth); --transition-smooth: 0.4s var(--ease-smooth); }
+        [data-theme="dark"] { --bg: #0A0A0A; --text: #E0E0E0; --text-light: #A0A0A0; --text-muted: #555555; --border: #1A1A1A; --accent: #F0F0F0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; opacity: 0.025; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); }
+        body { font-family: var(--font-body); font-size: 18px; line-height: 1.75; color: var(--text); background: var(--bg); min-height: 100vh; transition: background-color 0.6s var(--ease-smooth), color 0.6s var(--ease-smooth); }
+        .scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 2px; background: var(--accent); opacity: 0.4; z-index: 10000; transition: width 0.1s linear; }
+        .container { max-width: 680px; margin: 0 auto; padding: var(--space-3xl) var(--space-md) var(--space-2xl); }
+        .back { display: inline-block; margin-bottom: var(--space-xl); color: var(--text-muted); text-decoration: none; font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 400; opacity: 0.6; transition: opacity var(--transition-fast); }
+        .back:hover { opacity: 1; }
+        h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 400; line-height: 1.2; margin-bottom: var(--space-xs); letter-spacing: -0.02em; }
+        .meta { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-xl); }
+        .date { font-family: var(--font-sans); color: var(--text-muted); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 300; opacity: 0.6; }
+        .read-time { font-family: var(--font-sans); color: var(--text-muted); font-size: 0.65rem; letter-spacing: 0.1em; font-weight: 300; opacity: 0.5; }
+        p { margin-bottom: var(--space-md); text-align: justify; font-size: 1.1rem; color: var(--text-light); line-height: 1.85; }
+        p:first-of-type::first-letter { font-family: var(--font-display); font-size: 4.5em; float: left; line-height: 0.75; margin-right: 0.12em; margin-top: 0.1em; font-weight: 400; }
+        blockquote { border-left: 2px solid var(--accent); padding-left: var(--space-md); margin: var(--space-lg) 0; font-style: italic; color: var(--text-light); opacity: 0.85; }
+        footer { margin-top: var(--space-2xl); padding-top: var(--space-md); text-align: center; font-family: var(--font-sans); color: var(--text-muted); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 300; opacity: 0.5; }
+        .theme-toggle { position: fixed; top: var(--space-md); right: var(--space-md); background: none; border: none; color: var(--text-muted); padding: var(--space-xs) var(--space-sm); font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; opacity: 0.5; transition: opacity var(--transition-fast), transform var(--transition-smooth); z-index: 100; }
+        .theme-toggle:hover { opacity: 1; }
+        .theme-toggle:active { transform: scale(0.95); }
+        ::selection { background: var(--accent); color: var(--bg); }
+        [data-theme="dark"] ::selection { background: #E0E0E0; color: #0A0A0A; }
+        .related { margin-top: var(--space-2xl); padding-top: var(--space-lg); border-top: 1px solid var(--border); }
+        .related h3 { font-family: var(--font-sans); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: var(--space-md); opacity: 0.6; }
+        .related a { display: block; color: var(--text); text-decoration: none; font-family: var(--font-display); font-size: 1.1rem; margin-bottom: var(--space-sm); transition: opacity var(--transition-fast); }
+        .related a:hover { opacity: 0.6; }
+        @media (max-width: 600px) { .container { padding: var(--space-2xl) var(--space-sm) var(--space-xl); } p:first-of-type::first-letter { font-size: 3.5em; } }
     </style>
 </head>
 <body>
+    <div class="scroll-progress" id="progress"></div>
     <button class="theme-toggle" onclick="toggleTheme()">Dark</button>
     <div class="container">
         <a href="index.html" class="back">← Trang chủ</a>
         <h1>Chuyện Tiền</h1>
-        <p class="date">23/02/2026</p>
-        <p>Tiền không phải giấy. Tiền là niềm tin. Khi niềm tin sụp đổ, tiền chỉ là giấy.</p>
-        <p>Nhưng cũng đừng quên: tiền là công cụ. Công cụ thì không tốt, không xấu. Con dao có thể cắt cơm, cũng có thể giết người. Tiền cũng vậy.</p>
-        <p>Có người nói tiền làm tha hóa. Nhưng tha hóa là chuyện của người, không phải của tiền. Tiền chỉ phóng đại những gì đã có sẵn trong tâm.</p>
-        <p>Một người tốt có tiền sẽ làm nhiều điều tốt. Một người xấu có tiền sẽ làm nhiều điều xấu. Tiền không thay đổi con người. Tiền chỉ cho họ thêm quyền lực để làm điều họ đã muốn làm.</p>
-        <p>Vậy nên đừng ghét tiền. Đừng yêu tiền. Chỉ cần xem tiền như nước — cần để sống, nhưng đừng để nước nhấn chìm.</p>
-        <p>"Lương ba triệu về quê ăn tết." Câu hát ấy không nói về sự nghèo. Nó nói về sự chân thành. Tiền ít mà tình đủ, hơn tiền nhiều mà tình không.</p>
-        <p>Nhưng cũng đừng dại. Tiền cho phép ta làm nhiều điều. Điều tốt hay xấu là chuyện của ta.</p>
+        <div class="meta"><time class="date" datetime="2026-02-23">23/02/2026</time><span class="read-time">• 4 phút đọc</span></div>
+        <p>Tiền không phải giấy. Tiền là niềm tin. Khi niềm tin sụp đổ, tiền chỉ là giấy. Đó là bài học đầu tiên và cũng là bài học quan trọng nhất về tiền. Chúng ta trao đổi giấy in hình người, tin rằng nó có giá trị. Và niềm tin ấy được duy trì bởi tất cả chúng ta cùng lúc. Một khi niềm tin ấy lung lay, mọi thứ sụp đổ nhanh hơn bất kỳ cuộc khủng hoảng nào.</p>
+        <blockquote>"Tiền không thay đổi con người. Tiền chỉ cho họ thêm quyền lực để làm điều họ đã muốn làm."</blockquote>
+        <p>Nhưng cũng đừng quên: tiền là công cụ. Công cụ thì không tốt, không xấu. Con dao có thể cắt cơm, cũng có thể giết người. Lưỡi dao vô tư với mục đích của người cầm nó. Tiền cũng vậy. Nó chỉ là một phương tiện, không phải đích đến. Nhưng chúng ta thường quên điều này khi số tiền trong tay ngày càng lớn.</p>
+        <p>Có người nói tiền làm tha hóa. Nhưng tha hóa là chuyện của người, không phải của tiền. Tiền chỉ phóng đại những gì đã có sẵn trong tâm. Một người tốt có tiền sẽ làm nhiều điều tốt hơn, vì họ có thêm nguồn lực. Một người xấu có tiền sẽ làm nhiều điều xấu hơn, vì họ có thêm sức mạnh. Tiền không thay đổi con người. Tiền chỉ cho họ thêm quyền lực để làm điều họ đã muốn làm từ lâu.</p>
+        <p>Vậy nên đừng ghét tiền. Đừng yêu tiền. Chỉ cần xem tiền như nước — cần để sống, nhưng đừng để nước nhấn chìm. Biết bơi là sống, không biết bơi là chết đuối. Tiền cũng vậy. Biết dùng tiền là tự do, bị tiền dùng là nô lệ.</p>
+        <p>"Lương ba triệu về quê ăn tết." Câu hát ấy không nói về sự nghèo. Nó nói về sự chân thành. Tiền ít mà tình đủ, hơn tiền nhiều mà tình không. Đó là sự thật mà nhiều người quên khi đuổi theo những con số trong tài khoản. Tiền có thể mua được nhà, nhưng không mua được gia đình. Tiền có thể mua được thuốc, nhưng không mua được sức khỏe. Tiền có thể mua được giường, nhưng không mua được giấc ngủ.</p>
+        <p>Nhưng cũng đừng dại. Tiền cho phép ta làm nhiều điều. Điều tốt hay xấu là chuyện của ta. Tiền mở ra cánh cửa, nhưng bước vào hay không là quyết định của mỗi người. Có người bước vào và quên mất mình là ai. Có người bước vào và nhớ rằng mình còn có trách nhiệm với những người xung quanh.</p>
+        <p>Tiền không phải mục đích. Tiền là phương tiện để sống tốt hơn, để giúp đỡ nhiều người hơn, để tạo ra giá trị cho cộng đồng. Khi hiểu như vậy, tiền không còn là gánh nặng hay ám ảnh. Nó trở thành công cụ để sống có ý nghĩa.</p>
+        <div class="related">
+            <h3>Bài viết liên quan</h3>
+            <a href="three-million.html">→ Lương Ba Triệu</a>
+            <a href="the-sphere.html">→ Đứa Trẻ Trong Quả Cầu Kính</a>
+        </div>
         <footer><p>© 2026 Triết Học Mỗi Ngày</p></footer>
     </div>
     <script>
+        window.addEventListener('scroll', () => { const winScroll = document.body.scrollTop || document.documentElement.scrollTop; const height = document.documentElement.scrollHeight - document.documentElement.clientHeight; document.getElementById('progress').style.width = (winScroll / height) * 100 + '%'; });
         function toggleTheme() { const html = document.documentElement; const btn = document.querySelector('.theme-toggle'); html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); btn.textContent = html.getAttribute('data-theme') === 'dark' ? 'Light' : 'Dark'; localStorage.setItem('theme', html.getAttribute('data-theme')); }
         if (localStorage.getItem('theme') === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); document.querySelector('.theme-toggle').textContent = 'Light'; }
     </script>
