@@ -7,7 +7,7 @@
     <meta name="description" content="{{ page.description | default: page.excerpt | strip_html | truncate: 160 }}">
     <meta property="og:title" content="{{ page.title }}">
     <meta property="og:description" content="{{ page.description | default: page.excerpt | strip_html | truncate: 160 }}">
-    <link rel="canonical" href="https://canneed02.github.io/triet-hoc-moi-ngay{{ page.url }}">
+    <link rel="canonical" href="https://canneed02.github.io{{ site.baseurl }}{{ page.url }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -20,23 +20,35 @@
         body { font-family: var(--font-body); font-size: 18px; line-height: 1.75; color: var(--text); background: var(--bg); min-height: 100vh; transition: background-color 0.6s var(--ease-smooth), color 0.6s var(--ease-smooth); }
         .scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 2px; background: var(--accent); opacity: 0.4; z-index: 10000; transition: width 0.1s linear; }
         .container { max-width: 680px; margin: 0 auto; padding: var(--space-3xl) var(--space-md) var(--space-2xl); }
+        
+        /* Header */
         header { text-align: center; margin-bottom: var(--space-3xl); }
         header h1 { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: var(--space-sm); }
         .subtitle { font-family: var(--font-sans); color: var(--text-muted); font-size: 0.75rem; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; }
+        
+        /* Navigation */
         nav { display: flex; justify-content: center; gap: var(--space-xl); margin-bottom: var(--space-2xl); padding-bottom: var(--space-md); font-family: var(--font-sans); }
         nav a { color: var(--text-muted); text-decoration: none; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 400; position: relative; transition: color var(--transition-fast); }
         nav a::after { content: ''; position: absolute; width: 100%; transform: scaleX(0); height: 1px; bottom: -6px; left: 0; background-color: currentColor; transform-origin: right; transition: transform var(--transition-smooth); }
         nav a:hover, nav a.active { color: var(--text); }
         nav a:hover::after, nav a.active::after { transform: scaleX(1); transform-origin: left; }
+        
+        /* Theme Toggle */
         .theme-toggle { position: fixed; top: var(--space-md); right: var(--space-md); background: none; border: none; color: var(--text-muted); padding: var(--space-xs) var(--space-sm); font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; opacity: 0.5; transition: opacity var(--transition-fast), transform var(--transition-smooth); z-index: 100; }
         .theme-toggle:hover { opacity: 1; }
         .theme-toggle:active { transform: scale(0.95); }
+        
+        /* Back Link */
         .back { display: inline-block; margin-bottom: var(--space-xl); color: var(--text-muted); text-decoration: none; font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 400; opacity: 0.6; transition: opacity var(--transition-fast); }
         .back:hover { opacity: 1; }
+        
+        /* Typography */
         h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 400; line-height: 1.2; margin-bottom: var(--space-xs); letter-spacing: -0.02em; }
         .meta { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-xl); }
         .date { font-family: var(--font-sans); color: var(--text-muted); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 300; opacity: 0.6; }
         .read-time { font-family: var(--font-sans); color: var(--text-muted); font-size: 0.65rem; letter-spacing: 0.1em; font-weight: 300; opacity: 0.5; }
+        
+        /* Article List */
         article { margin-bottom: var(--space-2xl); padding-bottom: var(--space-xl); border-bottom: 1px solid var(--border); }
         article:last-child { border-bottom: none; }
         article h2 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 400; line-height: 1.35; margin-bottom: var(--space-xs); }
@@ -44,6 +56,8 @@
         article h2 a::after { content: ''; position: absolute; width: 100%; transform: scaleX(0); height: 1px; bottom: 2px; left: 0; background-color: currentColor; transform-origin: right; transition: transform var(--transition-smooth); }
         article h2 a:hover::after { transform: scaleX(1); transform-origin: left; }
         article h2 a:hover { opacity: 0.7; }
+        
+        /* Post List Animation */
         .post-list article { animation: fadeIn 1s var(--ease-smooth); animation-fill-mode: both; }
         .post-list article:nth-child(1) { animation-delay: 0.1s; }
         .post-list article:nth-child(2) { animation-delay: 0.2s; }
@@ -51,18 +65,62 @@
         .post-list article:nth-child(4) { animation-delay: 0.4s; }
         .post-list article:nth-child(5) { animation-delay: 0.5s; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Paragraphs - Base Style */
         p { margin-bottom: var(--space-md); text-align: justify; font-size: 1.1rem; color: var(--text-light); line-height: 1.85; orphans: 3; widows: 3; }
-        p:first-of-type::first-letter { font-family: var(--font-display); font-size: 4.5em; float: left; line-height: 0.75; margin-right: 0.12em; margin-top: 0.1em; font-weight: 400; }
+        
+        /* ============================================
+           DROP CAP - CHỈ ÁP DỤNG CHO POST CONTENT
+           ============================================ */
+        /* Drop cap CHỈ áp dụng cho .post-content > p:first-of-type */
+        /* Không áp dụng cho .post-excerpt hoặc bất kỳ thẻ nào khác */
+        .post-content > p:first-of-type::first-letter {
+            font-family: var(--font-display);
+            font-size: 4.5em;
+            float: left;
+            line-height: 0.75;
+            margin-right: 0.12em;
+            margin-top: 0.1em;
+            font-weight: 400;
+        }
+        
+        /* EXCERPT - KHÔNG CÓ DROP CAP */
+        /* Đảm bảo excerpt hiển thị bình thường */
+        .post-excerpt {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        .post-excerpt::first-letter {
+            font-size: 1rem !important;
+            font-weight: normal !important;
+            float: none !important;
+            margin: 0 !important;
+        }
+        
+        /* Blockquote */
         blockquote { border-left: 2px solid var(--accent); padding-left: var(--space-md); margin: var(--space-lg) 0; font-style: italic; color: var(--text-light); opacity: 0.85; }
+        
+        /* Footer */
         footer { margin-top: var(--space-3xl); padding-top: var(--space-lg); text-align: center; font-family: var(--font-sans); color: var(--text-muted); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 300; opacity: 0.6; }
         .divider { width: 32px; height: 1px; background: var(--border); margin: 0 auto var(--space-lg); }
+        
+        /* Selection */
         ::selection { background: var(--accent); color: var(--bg); }
         [data-theme="dark"] ::selection { background: #E0E0E0; color: #0A0A0A; }
+        
+        /* Related Posts */
         .related { margin-top: var(--space-2xl); padding-top: var(--space-lg); border-top: 1px solid var(--border); }
         .related h3 { font-family: var(--font-sans); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: var(--space-md); opacity: 0.6; }
         .related a { display: block; color: var(--text); text-decoration: none; font-family: var(--font-display); font-size: 1.1rem; margin-bottom: var(--space-sm); transition: opacity var(--transition-fast); }
         .related a:hover { opacity: 0.6; }
-        @media (max-width: 600px) { .container { padding: var(--space-2xl) var(--space-sm) var(--space-xl); } p:first-of-type::first-letter { font-size: 3.5em; } nav { gap: var(--space-md); } }
+        
+        /* Mobile */
+        @media (max-width: 600px) { 
+            .container { padding: var(--space-2xl) var(--space-sm) var(--space-xl); } 
+            .post-content > p:first-of-type::first-letter { font-size: 3.5em; }
+            nav { gap: var(--space-md); } 
+        }
     </style>
 </head>
 <body>
@@ -70,13 +128,17 @@
     <button class="theme-toggle" onclick="toggleTheme()">Dark</button>
     <div class="container">
         {% if page.layout == "post" %}
+        <!-- Trang chi tiết bài viết -->
         <a href="{{ site.baseurl }}/" class="back">← Trang chủ</a>
         <h1>{{ page.title }}</h1>
         <div class="meta">
             <time class="date" datetime="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date: "%d/%m/%Y" }}</time>
         </div>
-        {{ content }}
+        <div class="post-content">
+            {{ content }}
+        </div>
         {% else %}
+        <!-- Trang chủ và các trang khác -->
         <header>
             <h1>Triết Học Mỗi Ngày</h1>
             <p class="subtitle">Những suy nghĩ về cuộc sống, cái chết và sự tồn tại</p>
@@ -87,15 +149,7 @@
             <a href="{{ site.baseurl }}/about/">Giới thiệu</a>
         </nav>
         <main class="post-list">
-            {% for post in site.posts limit:10 %}
-            <article>
-                <div class="meta">
-                    <time class="date" datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | date: "%d/%m/%Y" }}</time>
-                </div>
-                <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-                <p>{{ post.description | default: post.excerpt | strip_html | truncate: 100 }}</p>
-            </article>
-            {% endfor %}
+            {{ content }}
         </main>
         {% endif %}
         <footer>
@@ -105,9 +159,22 @@
         </footer>
     </div>
     <script>
-        window.addEventListener('scroll', () => { const winScroll = document.body.scrollTop || document.documentElement.scrollTop; const height = document.documentElement.scrollHeight - document.documentElement.clientHeight; document.getElementById('progress').style.width = (winScroll / height) * 100 + '%'; });
-        function toggleTheme() { const html = document.documentElement; const btn = document.querySelector('.theme-toggle'); html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); btn.textContent = html.getAttribute('data-theme') === 'dark' ? 'Light' : 'Dark'; localStorage.setItem('theme', html.getAttribute('data-theme')); }
-        if (localStorage.getItem('theme') === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); document.querySelector('.theme-toggle').textContent = 'Light'; }
+        window.addEventListener('scroll', () => { 
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop; 
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight; 
+            document.getElementById('progress').style.width = (winScroll / height) * 100 + '%'; 
+        });
+        function toggleTheme() { 
+            const html = document.documentElement; 
+            const btn = document.querySelector('.theme-toggle'); 
+            html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); 
+            btn.textContent = html.getAttribute('data-theme') === 'dark' ? 'Light' : 'Dark'; 
+            localStorage.setItem('theme', html.getAttribute('data-theme')); 
+        }
+        if (localStorage.getItem('theme') === 'dark') { 
+            document.documentElement.setAttribute('data-theme', 'dark'); 
+            document.querySelector('.theme-toggle').textContent = 'Light'; 
+        }
     </script>
 </body>
 </html>

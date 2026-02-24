@@ -5,3 +5,8 @@ baseurl: "/triet-hoc-moi-ngay"
 permalink: /:title/
 
 timezone: Asia/Ho_Chi_Minh
+
+collections:
+  posts:
+    output: true
+    permalink: /:title/
