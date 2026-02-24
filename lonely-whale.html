@@ -67,7 +67,7 @@
     <script>
         window.addEventListener('scroll', () => { const winScroll = document.body.scrollTop || document.documentElement.scrollTop; const height = document.documentElement.scrollHeight - document.documentElement.clientHeight; document.getElementById('progress').style.width = (winScroll / height) * 100 + '%'; });
         function toggleTheme() { const html = document.documentElement; const btn = document.querySelector('.theme-toggle'); html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); btn.textContent = html.getAttribute('data-theme') === 'dark' ? 'Light' : 'Dark'; localStorage.setItem('theme', html.getAttribute('data-theme')); }
-        if (localStorage.getItem('theme') === 'dark') { document.documentElement.setCallback('data-theme', 'dark'); document.querySelector('.theme-toggle').textContent = 'Light'; }
+        if (localStorage.getItem('theme') === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); document.querySelector('.theme-toggle').textContent = 'Light'; }
     </script>
 </body>
 </html>
