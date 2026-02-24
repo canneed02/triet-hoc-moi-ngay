@@ -3,3 +3,14 @@ layout: default
 title: Bài viết
 ---
 
+<div class="post-list">
+{% for post in site.posts %}
+<article>
+    <div class="meta">
+        <time class="date" datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | date: "%d/%m/%Y" }}</time>
+    </div>
+    <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+    <p>{{ post.description | default: post.excerpt | strip_html | truncate: 100 }}</p>
+</article>
+{% endfor %}
+</div>
