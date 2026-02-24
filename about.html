@@ -1,60 +1,16 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giới Thiệu — Triết Học Mỗi Ngày</title>
-    <meta name="description" content="Triết Học Mỗi Ngày - Nơi tôi ghi lại những suy nghĩ về cuộc sống. Viết cho những ai đang tỉnh.">
-    <meta property="og:title" content="Giới Thiệu — Triết Học Mỗi Ngày">
-    <meta property="og:description" content="Nơi tôi ghi lại những suy nghĩ về cuộc sống. Viết cho những ai đang tỉnh.">
-    <link rel="canonical" href="https://canneed02.github.io/triet-hoc-moi-ngay/about.html">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
-    <style>
-        :root { --bg: #F5F5F0; --text: #1A1A1A; --text-light: #4A4A4A; --text-muted: #8A8A8A; --border: #E8E8E8; --accent: #2D2D2D; --font-display: 'Playfair Display', 'Georgia', serif; --font-body: 'Cormorant Garamond', 'Georgia', serif; --font-sans: 'Inter', -apple-system, sans-serif; --space-xs: 8px; --space-sm: 16px; --space-md: 24px; --space-lg: 32px; --space-xl: 48px; --space-2xl: 64px; --space-3xl: 96px; --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1); --transition-fast: 0.2s var(--ease-smooth); --transition-smooth: 0.4s var(--ease-smooth); }
-        [data-theme="dark"] { --bg: #0A0A0A; --text: #E0E0E0; --text-light: #A0A0A0; --text-muted: #555555; --border: #1A1A1A; --accent: #F0F0F0; }
-        * { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
-        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; opacity: 0.025; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); }
-        body { font-family: var(--font-body); font-size: 18px; line-height: 1.75; color: var(--text); background: var(--bg); min-height: 100vh; transition: background-color 0.6s var(--ease-smooth), color 0.6s var(--ease-smooth); }
-        .scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 2px; background: var(--accent); opacity: 0.4; z-index: 10000; transition: width 0.1s linear; }
-        .container { max-width: 680px; margin: 0 auto; padding: var(--space-3xl) var(--space-md) var(--space-2xl); }
-        .back { display: inline-block; margin-bottom: var(--space-xl); color: var(--text-muted); text-decoration: none; font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 400; opacity: 0.6; transition: opacity var(--transition-fast); }
-        .back:hover { opacity: 1; }
-        h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 400; line-height: 1.2; margin-bottom: var(--space-xl); letter-spacing: -0.02em; }
-        p { margin-bottom: var(--space-md); text-align: justify; font-size: 1.1rem; color: var(--text-light); line-height: 1.85; orphans: 3; widows: 3; }
-        blockquote { border-left: 2px solid var(--accent); padding-left: var(--space-md); margin: var(--space-lg) 0; font-style: italic; color: var(--text-light); opacity: 0.85; }
-        footer { margin-top: var(--space-2xl); padding-top: var(--space-md); text-align: center; font-family: var(--font-sans); color: var(--text-muted); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 300; opacity: 0.5; }
-        .theme-toggle { position: fixed; top: var(--space-md); right: var(--space-md); background: none; border: none; color: var(--text-muted); padding: var(--space-xs) var(--space-sm); font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; opacity: 0.5; transition: opacity var(--transition-fast), transform var(--transition-smooth); z-index: 100; }
-        .theme-toggle:hover { opacity: 1; }
-        .theme-toggle:active { transform: scale(0.95); }
-        ::selection { background: var(--accent); color: var(--bg); }
-        [data-theme="dark"] ::selection { background: #E0E0E0; color: #0A0A0A; }
-        @media (max-width: 600px) { .container { padding: var(--space-2xl) var(--space-sm) var(--space-xl); } }
-    </style>
-</head>
-<body>
-    <div class="scroll-progress" id="progress"></div>
-    <button class="theme-toggle" onclick="toggleTheme()">Dark</button>
-    <div class="container">
-        <a href="index.html" class="back">← Trang chủ</a>
-        <h1>Giới Thiệu</h1>
-        <p>Đây là nơi tôi viết những suy nghĩ về cuộc sống. Không phải để thuyết giáo, không phải để chia sẻ tri thức, chỉ để ghi lại những khoảnh khắc tỉnh táo giữa cuộc đời hỗn loạn.</p>
-        <p>Tôi không phải triết gia. Tôi chỉ là người thích nghĩ. Thích ngồi một mình với những câu hỏi không có câu trả lời. Thích hỏi những điều người khác cho là hiển nhiên.</p>
-        <blockquote>"Viết cho những ai đang tỉnh."</blockquote>
-        <p>Mỗi ngày, có một khoảnh khắc tôi dừng lại và hỏi: "Điều gì thật sự quan trọng?" Câu trả lời thay đổi theo năm tháng, theo trải nghiệm, theo tuổi tác. Nhưng những câu hỏi thì vẫn vậy. Chúng đeo bám tôi như bóng ma, như tiếng vọng, như những gì tôi không thể né tránh.</p>
-        <p>Trang này là nơi tôi ghi lại những câu trả lời của tôi. Có thể bạn sẽ đồng ý. Có thể bạn sẽ không. Nhưng nếu một câu chữ khiến bạn dừng lại suy nghĩ, nếu một ý nghĩ khiến bạn nhìn cuộc sống khác đi một chút, thì đó là đủ.</p>
-        <p>Triết học không phải môn học xa vời trong sách vở. Triết học là cách sống, là cách nhìn thế giới, là cách đặt câu hỏi về những điều chúng ta vẫn cho là hiển nhiên. Tại sao ta sống? Tại sao ta chết? Tại sao ta yêu? Tại sao ta đau? Những câu hỏi không có câu trả lời, nhưng việc hỏi đã là cách để sống có ý nghĩa.</p>
-        <p>Tôi viết về cái chết vì nó là người thầy tốt nhất. Viết về tiền vì nó là thứ chúng ta không thể không nghĩ đến. Viết về tình yêu vì nó là thứ duy nhất đáng sống. Viết về sự cô đơn vì đó là căn phòng mỗi chúng ta đều phải bước vào một lần.</p>
-        <p>Không có gì để khoe ở đây. Không có tri thức uyên bác. Chỉ có những suy nghĩ chân thành của một người đang cố hiểu cuộc sống này. Nếu bạn đọc và thấy một phần nào đó của mình trong những dòng này, thì chúng ta đã gặp nhau.</p>
-        <p>Viết cho những ai đang tỉnh. Viết cho những ai không ngủ quên trong giấc ngủ của sự quen thuộc. Viết cho những ai vẫn đặt câu hỏi.</p>
-        <footer><p>© 2026 Triết Học Mỗi Ngày</p></footer>
-    </div>
-    <script>
-        window.addEventListener('scroll', () => { const winScroll = document.body.scrollTop || document.documentElement.scrollTop; const height = document.documentElement.scrollHeight - document.documentElement.clientHeight; document.getElementById('progress').style.width = (winScroll / height) * 100 + '%'; });
-        function toggleTheme() { const html = document.documentElement; const btn = document.querySelector('.theme-toggle'); html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); btn.textContent = html.getAttribute('data-theme') === 'dark' ? 'Light' : 'Dark'; localStorage.setItem('theme', html.getAttribute('data-theme')); }
-        if (localStorage.getItem('theme') === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); document.querySelector('.theme-toggle').textContent = 'Light'; }
-    </script>
-</body>
-</html>
+---
+layout: default
+title: Giới thiệu
+---
+
+<p>Đây là nơi tôi viết những suy nghĩ về cuộc sống. Không phải để thuyết giáo, không phải để chia sẻ tri thức, chỉ để ghi lại những khoảnh khắc tỉnh táo giữa cuộc đời hỗn loạn.</p>
+
+<p>Tôi không phải triết gia. Tôi chỉ là người thích nghĩ. Thích ngồi một mình với những câu hỏi không có câu trả lời. Thích hỏi những điều người khác cho là hiển nhiên.</p>
+
+<blockquote>"Viết cho những ai đang tỉnh."</blockquote>
+
+<p>Mỗi ngày, có một khoảnh khắc tôi dừng lại và hỏi: "Điều gì thật sự quan trọng?" Câu trả lời thay đổi theo năm tháng, theo trải nghiệm, theo tuổi tác. Nhưng những câu hỏi thì vẫn vậy. Chúng đeo bám tôi như bóng ma, như tiếng vọng, như những gì tôi không thể né tránh.</p>
+
+<p>Trang này là nơi tôi ghi lại những câu trả lời của tôi. Có thể bạn sẽ đồng ý. Có thể bạn sẽ không. Nhưng nếu một câu chữ khiến bạn dừng lại suy nghĩ, nếu một ý nghĩ khiến bạn nhìn cuộc sống khác đi một chút, thì đó là đủ.</p>
+
+<p>Triết học không phải môn học xa vời trong sách vở. Triết học là cách sống, là cách nhìn thế giới, là cách đặt câu hỏi về những điều chúng ta vẫn cho là hiển nhiên. Tại sao ta sống? Tại sao ta chết? Tại sao ta yêu? Tại sao ta đau? Những câu hỏi không có câu trả lời, nhưng việc hỏi đã là cách để sống có ý nghĩa.</p>
