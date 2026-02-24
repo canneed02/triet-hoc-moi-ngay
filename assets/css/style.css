@@ -56,8 +56,27 @@ body {
 
 /* HEADER */
 header { text-align: center; margin-bottom: var(--space-3xl); }
-header h1 { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: var(--space-sm); }
-.subtitle { font-family: var(--font-sans); color: var(--text-muted); font-size: 0.75rem; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; }
+header h1 { 
+    font-family: var(--font-display); 
+    font-size: clamp(2rem, 5vw, 3rem); 
+    font-weight: 400; 
+    letter-spacing: -0.02em; 
+    line-height: 1.2; 
+    margin-bottom: 1rem;
+    text-align: center;
+}
+.subtitle { 
+    font-family: var(--font-sans); 
+    color: var(--text-muted); 
+    font-size: 0.9rem; 
+    font-weight: 300; 
+    letter-spacing: 0.2em; 
+    text-transform: uppercase; 
+    opacity: 0.7;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+}
 
 /* NAV */
 nav { display: flex; justify-content: center; gap: var(--space-xl); margin-bottom: var(--space-2xl); padding-bottom: var(--space-md); font-family: var(--font-sans); }
