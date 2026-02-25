@@ -107,17 +107,17 @@
     <!-- HUD Status Bar -->
     <div class="hud-bar">
         <div class="hud-content" id="hudContent">
-            <span class="hud-item">⏱️ <span id="hudTime">--:--</span></span>
-            <span class="hud-sep">|</span>
-            <span class="hud-item">🌡️ <span id="hudWeather">--°F</span></span>
-            <span class="hud-sep">|</span>
-            <span class="hud-item">📈 SMR: <span id="hudSMR">--</span></span>
-            <span class="hud-sep">|</span>
-            <span class="hud-item">🛰️ ASTS: <span id="hudASTS">--</span></span>
-            <span class="hud-sep">|</span>
-            <span class="hud-item">🥉 Cu: <span id="hudCopper">--</span></span>
-            <span class="hud-sep">|</span>
-            <span class="hud-item">🔗 STATUS: <span id="hudStatus">ONLINE</span></span>
+            <span class="hud-item">[ <span id="hudTime">--:--</span> ]</span>
+            <span class="hud-sep"></span>
+            <span class="hud-item">[ WX <span id="hudWeather">--</span> ]</span>
+            <span class="hud-sep"></span>
+            <span class="hud-item">[ SMR <span id="hudSMR">--</span> ]</span>
+            <span class="hud-sep"></span>
+            <span class="hud-item">[ ASTS <span id="hudASTS">--</span> ]</span>
+            <span class="hud-sep"></span>
+            <span class="hud-item">[ CU <span id="hudCopper">--</span> ]</span>
+            <span class="hud-sep"></span>
+            <span class="hud-item">[ SYS <span id="hudStatus">OK</span> ]</span>
         </div>
     </div>
     
@@ -127,53 +127,47 @@
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 26px;
-        background: rgba(0, 0, 0, 0.85);
-        backdrop-filter: blur(5px);
-        -webkit-backdrop-filter: blur(5px);
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        height: 24px;
+        background: #0a0a0a;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
         z-index: 99990;
         display: flex;
         align-items: center;
         justify-content: center;
-        overflow: hidden;
     }
     .hud-content {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 6px;
         white-space: nowrap;
-        animation: hudScroll 30s linear infinite;
-    }
-    @keyframes hudScroll {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
     }
     .hud-item {
-        font-family: 'Inter', sans-serif;
-        font-size: 0.65rem;
-        font-weight: 300;
-        color: #888;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-    }
-    .hud-sep {
-        color: #444;
-        font-size: 0.5rem;
+        font-family: 'IBM Plex Mono', 'Menlo', 'Monaco', monospace;
+        font-size: 0.6rem;
+        font-weight: 400;
+        color: #555;
+        letter-spacing: 0.05em;
     }
     .hud-item span {
-        color: #aaa;
+        color: #777;
+    }
+    .hud-sep {
+        color: #333;
+        margin: 0 2px;
     }
     .hud-item.up span { color: #4ade80; }
     .hud-item.down span { color: #f87171; }
+    @media (max-width: 768px) {
+        .hud-item { font-size: 0.55rem; }
+    }
     </style>
     
     <script>
     (function() {
         // ============== API CONFIG ==============
         // Add your API keys here:
-        var FINNHUB_API_KEY = 'YOUR_FINNHUB_KEY'; // Get free key at finnhub.io
-        var ALPHAVANTAGE_API_KEY = 'YOUR_ALPHAVANTAGE_KEY'; // Get free key at alphavantage.co
+        var FINNHUB_API_KEY = 'YOUR_FINNHUB_KEY';
+        var ALPHAVANTAGE_API_KEY = 'YOUR_ALPHAVANTAGE_KEY';
         
         // ============== UPDATE TIME ==============
         function updateTime() {
@@ -183,72 +177,52 @@
         setInterval(updateTime, 1000);
         updateTime();
         
-        // ============== WEATHER (Open-Meteo - Free, No Key) ==============
+        // ============== WEATHER (Open-Meteo - Free) ==============
         function fetchWeather() {
-            // West Jordan, UT coordinates: 40.6097, -111.9391
-            // Kingsville, TX coordinates: 27.5158, -97.8547
             Promise.all([
                 fetch('https://api.open-meteo.com/v1/forecast?latitude=40.61&longitude=-111.94&current_weather=true&temperature_unit=fahrenheit'),
                 fetch('https://api.open-meteo.com/v1/forecast?latitude=27.52&longitude=-97.85&current_weather=true&temperature_unit=fahrenheit')
             ])
-            .then(function(responses) {
-                return Promise.all(responses.map(function(r) { return r.json(); }));
-            })
-            .then(function(data) {
-                var westJordan = Math.round(data[0].current_weather.temperature);
-                var kingsville = Math.round(data[1].current_weather.temperature);
-                document.getElementById('hudWeather').textContent = westJordan + '°F (UT) / ' + kingsville + '°F (TX)';
-            })
-            .catch(function() {
-                document.getElementById('hudWeather').textContent = '--°F';
-            });
-        }
-        
-        // ============== STOCKS (Yahoo Finance via query1) ==============
-        function fetchStocks() {
-            // Using Yahoo Finance (no API key needed via query1)
-            Promise.all([
-                fetch('https://query1.finance.yahoo.com/v8/finance/chart/SMR?interval=1d&range=1d'),
-                fetch('https://query1.finance.yahoo.com/v8/finance/chart/ASTS?interval=1d&range=1d'),
-                fetch('https://query1.finance.yahoo.com/v8/finance/chart/CPER?interval=1d&range=1d') // Copper ETF
-            ])
-            .then(function(responses) {
-                return Promise.all(responses.map(function(r) { return r.json(); }));
-            })
+            .then(function(responses) { return Promise.all(responses.map(function(r) { return r.json(); })); })
             .then(function(data) {
                 try {
-                    var smr = data[0].chart.result[0].meta.regularMarketPrice;
-                    var asts = data[1].chart.result[0].meta.regularMarketPrice;
-                    var copper = data[2].chart.result[0].meta.regularMarketPrice;
-                    
-                    document.getElementById('hudSMR').textContent = '$' + smr.toFixed(2);
-                    document.getElementById('hudASTS').textContent = '$' + asts.toFixed(2);
-                    
-                    // Add copper to display
-                    var hudContent = document.getElementById('hudContent');
-                    var copperEl = document.getElementById('hudCopper');
-                    if (!copperEl) {
-                        copperEl = document.createElement('span');
-                        copperEl.className = 'hud-item';
-                        copperEl.id = 'hudCopper';
-                        copperEl.innerHTML = '<span class="hud-sep">|</span>🥉 Cu: <span>--</span>';
-                        document.getElementById('hudASTS').parentElement.parentElement.appendChild(copperEl);
-                    }
-                    copperEl.querySelector('span').textContent = '$' + copper.toFixed(2);
-                } catch(e) {
-                    console.log('Stock data error:', e);
-                }
+                    var westJordan = Math.round(data[0].current_weather.temperature);
+                    var kingsville = Math.round(data[1].current_weather.temperature);
+                    document.getElementById('hudWeather').textContent = westJordan + '/' + kingsville + 'F';
+                } catch(e) { document.getElementById('hudWeather').textContent = '--'; }
             })
-            .catch(function(e) {
-                console.log('Stock fetch error:', e);
+            .catch(function() { document.getElementById('hudWeather').textContent = '--'; });
+        }
+        
+        // ============== STOCKS (via CORS Proxy) ==============
+        function fetchStocks() {
+            var proxy = 'https://api.allorigins.win/get?url=';
+            var stocks = [
+                { id: 'hudSMR', symbol: 'SMR' },
+                { id: 'hudASTS', symbol: 'ASTS' },
+                { id: 'hudCopper', symbol: 'CPER' }
+            ];
+            
+            stocks.forEach(function(stock) {
+                var url = 'https://query1.finance.yahoo.com/v8/finance/chart/' + stock.symbol + '?interval=1d&range=1d';
+                fetch(proxy + encodeURIComponent(url))
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    try {
+                        var json = JSON.parse(data.contents);
+                        var price = json.chart.result[0].meta.regularMarketPrice;
+                        document.getElementById(stock.id).textContent = price.toFixed(2);
+                    } catch(e) {
+                        document.getElementById(stock.id).textContent = '--';
+                    }
+                })
+                .catch(function() { document.getElementById(stock.id).textContent = '--'; });
             });
         }
         
-        // ============== INITIAL FETCH ==============
+        // ============== INIT ==============
         fetchWeather();
         fetchStocks();
-        
-        // ============== REFRESH EVERY 15 MINUTES ==============
         setInterval(fetchWeather, 15 * 60 * 1000);
         setInterval(fetchStocks, 15 * 60 * 1000);
     })();
