@@ -103,5 +103,94 @@
         }
     })();
     </script>
+    
+    <!-- HUD Status Bar -->
+    <div class="hud-bar">
+        <div class="hud-content" id="hudContent">
+            <span class="hud-item">⏱️ <span id="hudTime">--:--</span></span>
+            <span class="hud-sep">|</span>
+            <span class="hud-item">🌡️ <span id="hudWeather">--°F</span></span>
+            <span class="hud-sep">|</span>
+            <span class="hud-item">📈 SMR: <span id="hudSMR">--</span></span>
+            <span class="hud-sep">|</span>
+            <span class="hud-item">🛰️ ASTS: <span id="hudASTS">--</span></span>
+            <span class="hud-sep">|</span>
+            <span class="hud-item">🔗 STATUS: <span id="hudStatus">ONLINE</span></span>
+        </div>
+    </div>
+    
+    <style>
+    .hud-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 26px;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        z-index: 99990;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .hud-content {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+        animation: hudScroll 30s linear infinite;
+    }
+    @keyframes hudScroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+    .hud-item {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.65rem;
+        font-weight: 300;
+        color: #888;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+    .hud-sep {
+        color: #444;
+        font-size: 0.5rem;
+    }
+    .hud-item span {
+        color: #aaa;
+    }
+    .hud-item.up span { color: #4ade80; }
+    .hud-item.down span { color: #f87171; }
+    </style>
+    
+    <script>
+    (function() {
+        // Update time
+        function updateTime() {
+            var now = new Date();
+            document.getElementById('hudTime').textContent = now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+        
+        // Mock market data (replace with real API later)
+        function updateMarketData() {
+            // Simulated prices for demo
+            var smrPrice = (Math.random() * 10 + 8).toFixed(2);
+            var astsPrice = (Math.random() * 3 + 18).toFixed(2);
+            
+            document.getElementById('hudSMR').textContent = '$' + smrPrice;
+            document.getElementById('hudASTS').textContent = '$' + astsPrice;
+        }
+        setInterval(updateMarketData, 15000);
+        updateMarketData();
+        
+        // Weather (mock for now)
+        document.getElementById('hudWeather').textContent = '42°F';
+    })();
+    </script>
 </body>
 </html>
