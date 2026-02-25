@@ -1,0 +1,334 @@
+---
+layout: null
+---
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Graph — Triết Học Mỗi Ngày</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0A0A0A;
+            --text: #E0E0E0;
+            --text-muted: #888888;
+            --border: #1A1A1A;
+            --accent: #F0F0F0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* Noise overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.035;
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAD7tU1gAAAABlBMVEUAAAD///+l2Z/dAAAAAnRSTlMA/1uRIrUAAAA2SURBVHicmc4xDQAgAMBAwcZ/52Ww4YFDm9An90g6F2HOfR1j2vX5L5K6j067/o80V68vAyQ5A/m/G4yHAAAAAElFTkSuQmCC");
+            background-repeat: repeat;
+            mix-blend-mode: overlay;
+        }
+        
+        #graph-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+        
+        .header-overlay {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 100;
+            pointer-events: none;
+        }
+        .header-overlay h1 {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+        .header-overlay p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        
+        .back-link {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+            z-index: 100;
+        }
+        .back-link:hover { opacity: 1; }
+        
+        .tooltip {
+            position: absolute;
+            background: rgba(17, 17, 17, 0.95);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 0.85rem;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            max-width: 280px;
+            z-index: 200;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .tooltip.visible { opacity: 1; }
+        .tooltip h3 {
+            font-family: 'EB Garamond', serif;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+        .tooltip p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        
+        /* D3 Graph Styles */
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .node circle {
+            fill: #F5F5F0;
+            stroke: #888;
+            stroke-width: 1.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .node:hover circle {
+            fill: #FFD700;
+            stroke: #FFF;
+            stroke-width: 2px;
+            filter: url(#glow);
+        }
+        
+        .node text {
+            font-family: 'EB Garamond', serif;
+            font-size: 11px;
+            fill: var(--text-muted);
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        
+        .node:hover text {
+            fill: var(--text);
+            opacity: 1;
+        }
+        
+        .link {
+            stroke: #333;
+            stroke-opacity: 0.4;
+            fill: none;
+        }
+        
+        /* Glow filter */
+        .glow {
+            filter: url(#glow);
+        }
+        
+        .legend {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            opacity: 0.5;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <a href="/triet-hoc-moi-ngay/" class="back-link">← Trang chủ</a>
+    
+    <div class="header-overlay">
+        <h1>Mạng Lưới Tri Thức</h1>
+        <p>Knowledge Graph</p>
+    </div>
+    
+    <div id="graph-container"></div>
+    
+    <div class="tooltip" id="tooltip">
+        <h3></h3>
+        <p></p>
+    </div>
+    
+    <div class="legend">
+        Scroll to zoom • Drag to move
+    </div>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+        // Load graph data
+        fetch('/triet-hoc-moi-ngay/assets/js/graph_data.json')
+            .then(response => response.json())
+            .then(data => {
+                createGraph(data);
+            })
+            .catch(err => {
+                document.getElementById('graph-container').innerHTML = 
+                    '<p style="text-align:center;padding-top:50vh;color:#666;">Đang tải dữ liệu...</p>';
+            });
+        
+        function createGraph(data) {
+            const container = document.getElementById('graph-container');
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            
+            // Deduplicate links
+            const linkSet = new Set();
+            const links = [];
+            data.links.forEach(l => {
+                const key = [l.source, l.target].sort().join('|');
+                if (!linkSet.has(key)) {
+                    linkSet.add(key);
+                    links.push(l);
+                }
+            });
+            
+            const nodes = data.nodes.map(n => ({...n}));
+            
+            // Create SVG
+            const svg = d3.select('#graph-container')
+                .append('svg')
+                .attr('viewBox', [0, 0, width, height]);
+            
+            // Add glow filter
+            const defs = svg.append('defs');
+            const filter = defs.append('filter')
+                .attr('id', 'glow')
+                .attr('x', '-50%')
+                .attr('y', '-50%')
+                .attr('width', '200%')
+                .attr('height', '200%');
+            
+            filter.append('feGaussianBlur')
+                .attr('stdDeviation', '3')
+                .attr('result', 'coloredBlur');
+            
+            const feMerge = filter.append('feMerge');
+            feMerge.append('feMergeNode').attr('in', 'coloredBlur');
+            feMerge.append('feMergeNode').attr('in', 'SourceGraphic');
+            
+            // Create simulation
+            const simulation = d3.forceSimulation(nodes)
+                .force('link', d3.forceLink(links).id(d => d.id).distance(120))
+                .force('charge', d3.forceManyBody().strength(-300))
+                .force('center', d3.forceCenter(width / 2, height / 2))
+                .force('collision', d3.forceCollide().radius(40));
+            
+            // Create container for zoom
+            const g = svg.append('g');
+            
+            // Add zoom
+            svg.call(d3.zoom()
+                .scaleExtent([0.3, 3])
+                .on('zoom', (event) => {
+                    g.attr('transform', event.transform);
+                }));
+            
+            // Draw links
+            const link = g.append('g')
+                .selectAll('line')
+                .data(links)
+                .join('line')
+                .attr('class', 'link')
+                .attr('stroke-width', 1);
+            
+            // Draw nodes
+            const node = g.append('g')
+                .selectAll('g')
+                .data(nodes)
+                .join('g')
+                .attr('class', 'node')
+                .call(d3.drag()
+                    .on('start', dragstarted)
+                    .on('drag', dragged)
+                    .on('end', dragended));
+            
+            node.append('circle')
+                .attr('r', 8)
+                .on('mouseover', function(event, d) {
+                    const tooltip = document.getElementById('tooltip');
+                    tooltip.querySelector('h3').textContent = d.title;
+                    tooltip.querySelector('p').textContent = new Date(d.date).toLocaleDateString('vi-VN');
+                    tooltip.classList.add('visible');
+                    
+                    // Position tooltip
+                    tooltip.style.left = (event.pageX + 15) + 'px';
+                    tooltip.style.top = (event.pageY - 10) + 'px';
+                })
+                .on('mouseout', function() {
+                    document.getElementById('tooltip').classList.remove('visible');
+                })
+                .on('click', function(event, d) {
+                    window.location.href = d.id;
+                });
+            
+            node.append('text')
+                .attr('dx', 14)
+                .attr('dy', 4)
+                .text(d => d.title.length > 25 ? d.title.substring(0, 25) + '...' : d.title);
+            
+            // Update positions
+            simulation.on('tick', () => {
+                link
+                    .attr('x1', d => d.source.x)
+                    .attr('y1', d => d.source.y)
+                    .attr('x2', d => d.target.x)
+                    .attr('y2', d => d.target.y);
+                
+                node.attr('transform', d => `translate(${d.x},${d.y})`);
+            });
+            
+            function dragstarted(event) {
+                if (!event.active) simulation.alphaTarget(0.3).restart();
+                event.subject.fx = event.subject.x;
+                event.subject.fy = event.subject.y;
+            }
+            
+            function dragged(event) {
+                event.subject.fx = event.x;
+                event.subject.fy = event.y;
+            }
+            
+            function dragended(event) {
+                if (!event.active) simulation.alphaTarget(0);
+                event.subject.fx = null;
+                event.subject.fy = null;
+            }
+        }
+    </script>
+</body>
+</html>
