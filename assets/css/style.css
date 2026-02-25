@@ -132,6 +132,11 @@ article h2 a:hover { opacity: 0.7; }
 }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+/* GLOBAL FADE-IN for ALL pages */
+main {
+    animation: fadeIn 0.8s ease-out forwards;
+    opacity: 0;
+}
 /* PARAGRAPHS */
 p { margin-bottom: var(--space-md); text-align: justify; font-size: 1.1rem; color: var(--text-light); line-height: 1.85; orphans: 3; widows: 3; }
 

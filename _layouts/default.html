@@ -225,6 +225,12 @@
         fetchStocks();
         setInterval(fetchWeather, 15 * 60 * 1000);
         setInterval(fetchStocks, 15 * 60 * 1000);
+        
+        // Trigger fade-in animation
+        setTimeout(function() {
+            var main = document.querySelector('main');
+            if (main) main.style.opacity = '1';
+        }, 100);
     })();
     </script>
 </body>
