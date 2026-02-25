@@ -3,6 +3,7 @@
    ============================================ */
 :root { 
     --bg: #F5F5F0; 
+    --bg-secondary: #EBEBE6;
     --text: #1A1A1A; 
     --text-light: #4A4A4A; 
     --text-muted: #8A8A8A; 
@@ -21,6 +22,7 @@
 
 [data-theme="dark"] { 
     --bg: #0A0A0A; 
+    --bg-secondary: #111111;
     --text: #E0E0E0; 
     --text-light: #A0A0A0; 
     --text-muted: #555555; 

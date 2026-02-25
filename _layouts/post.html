@@ -4,7 +4,15 @@ layout: default
 
 <a href="{{ site.baseurl }}/" class="back">← Trang chủ</a>
 
-<h1>{{ page.title }}</h1>
+<div class="post-header">
+    <h1>{{ page.title }}</h1>
+    {% if page.title_en %}
+    <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="vi">VI</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+    {% endif %}
+</div>
 
 <div class="meta">
     <time class="date" datetime="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date: "%d/%m/%Y" }}</time>
@@ -12,5 +20,210 @@ layout: default
 </div>
 
 <article class="post-content">
-    {{ content }}
+    <div class="lang-content lang-vi">
+        {{ content }}
+    </div>
+    {% if page.content_en %}
+    <div class="lang-content lang-en" style="display: none;">
+        {{ page.content_en }}
+    </div>
+    {% endif %}
 </article>
+
+<!-- AI Search Modal -->
+<div class="ai-modal-overlay" id="aiModal">
+    <div class="ai-modal">
+        <div class="ai-modal-header">
+            <span>🔍 AI Insights</span>
+            <button class="ai-modal-close" onclick="closeAIModal()">×</button>
+        </div>
+        <div class="ai-modal-body" id="aiModalBody">
+            <p>Đang tìm kiếm...</p>
+        </div>
+        <div class="ai-modal-footer">
+            <a href="#" id="aiSearchLink" target="_blank">Tìm trên Google →</a>
+        </div>
+    </div>
+</div>
+
+<style>
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+}
+.post-header h1 {
+    flex: 1;
+}
+.lang-toggle {
+    display: flex;
+    gap: 4px;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+}
+.lang-toggle:hover {
+    opacity: 1;
+}
+.lang-btn {
+    background: var(--border);
+    border: none;
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    border-radius: 4px;
+    color: var(--text-muted);
+    transition: all 0.3s;
+}
+.lang-btn.active {
+    background: var(--text);
+    color: var(--bg);
+}
+
+/* AI Modal */
+.ai-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 20000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+.ai-modal-overlay.show {
+    display: flex;
+}
+.ai-modal {
+    background: var(--bg-secondary, #111);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+.ai-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+}
+.ai-modal-close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+}
+.ai-modal-body {
+    padding: 20px;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    min-height: 100px;
+}
+.ai-modal-footer {
+    padding: 12px 20px;
+    border-top: 1px solid var(--border);
+    text-align: right;
+}
+.ai-modal-footer a {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+.ai-search-trigger {
+    display: none;
+    position: absolute;
+    background: var(--text);
+    color: var(--bg);
+    border: none;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 1000;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Language Toggle
+    const langBtns = document.querySelectorAll('.lang-btn');
+    langBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const lang = this.dataset.lang;
+            langBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            document.querySelectorAll('.lang-content').forEach(c => c.style.display = 'none');
+            document.querySelector('.lang-' + lang).style.display = 'block';
+        });
+    });
+    
+    // AI Search on Text Selection
+    let aiTrigger = null;
+    document.addEventListener('selectionchange', function() {
+        const selection = window.getSelection();
+        const selectedText = selection.toString().trim();
+        
+        if (selectedText.length > 2 && selectedText.length < 100) {
+            const range = selection.getRangeAt(0);
+            const rect = range.getBoundingClientRect();
+            
+            if (!aiTrigger) {
+                aiTrigger = document.createElement('button');
+                aiTrigger.className = 'ai-search-trigger';
+                aiTrigger.innerHTML = '🔍 AI';
+                aiTrigger.onclick = function() { searchAI(selectedText); };
+                document.body.appendChild(aiTrigger);
+            }
+            
+            aiTrigger.style.display = 'block';
+            aiTrigger.style.top = (rect.bottom + window.scrollY + 8) + 'px';
+            aiTrigger.style.left = (rect.left + window.scrollX) + 'px';
+        } else if (aiTrigger) {
+            aiTrigger.style.display = 'none';
+        }
+    });
+});
+
+function searchAI(query) {
+    const modal = document.getElementById('aiModal');
+    const body = document.getElementById('aiModalBody');
+    const link = document.getElementById('aiSearchLink');
+    
+    modal.classList.add('show');
+    body.innerHTML = '<p>🔄 Đang tìm kiếm về "' + query + '"...</p>';
+    
+    // Simple Wikipedia search
+    const wikiUrl = 'https://en.wikipedia.org/wiki/' + encodeURIComponent(query.replace(/ /g, '_'));
+    link.href = wikiUrl;
+    
+    // Fetch from Wikipedia API
+    fetch('https://en.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(query.replace(/ /g, '_')))
+        .then(r => r.json())
+        .then(data => {
+            if (data.extract) {
+                body.innerHTML = '<strong>' + data.title + '</strong><p style="margin-top:8px;opacity:0.8">' + data.extract.substring(0, 300) + '...</p>';
+            } else {
+                body.innerHTML = '<p>Không tìm thấy thông tin. Bấm link bên dưới để tìm trên Google.</p>';
+            }
+        })
+        .catch(e => {
+            body.innerHTML = '<p>Không tìm thấy thông tin. Bấm link bên dưới để tìm trên Google.</p>';
+        });
+}
+
+function closeAIModal() {
+    document.getElementById('aiModal').classList.remove('show');
+}
+
+// Close modal on outside click
+document.getElementById('aiModal').addEventListener('click', function(e) {
+    if (e.target === this) closeAIModal();
+});
+</script>
