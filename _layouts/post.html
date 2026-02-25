@@ -8,6 +8,7 @@ layout: default
 
 <div class="meta">
     <time class="date" datetime="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date: "%d/%m/%Y" }}</time>
+    <span class="reading-time">• {{ content | number_of_words | divided_by: 200 | ceil }} phút đọc</span>
 </div>
 
 <article class="post-content">

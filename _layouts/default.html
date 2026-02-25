@@ -52,6 +52,18 @@
             var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             document.getElementById('progress').style.width = (winScroll / height) * 100 + '%';
         });
+        // Scroll reveal animation
+        const postContent = document.querySelector('.post-content');
+        if (postContent) {
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            observer.observe(postContent);
+        }
         function toggleTheme() {
             var html = document.documentElement;
             var btn = document.querySelector('.theme-toggle');
@@ -71,6 +83,18 @@
                 window.location.href = '/triet-hoc-moi-ngay/admin/';
             }
         });
+        // Scroll reveal animation
+        const postContent = document.querySelector('.post-content');
+        if (postContent) {
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            observer.observe(postContent);
+        }
     </script>
 </body>
 </html>
