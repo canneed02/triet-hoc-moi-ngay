@@ -115,6 +115,8 @@
             <span class="hud-sep">|</span>
             <span class="hud-item">🛰️ ASTS: <span id="hudASTS">--</span></span>
             <span class="hud-sep">|</span>
+            <span class="hud-item">🥉 Cu: <span id="hudCopper">--</span></span>
+            <span class="hud-sep">|</span>
             <span class="hud-item">🔗 STATUS: <span id="hudStatus">ONLINE</span></span>
         </div>
     </div>
@@ -168,7 +170,12 @@
     
     <script>
     (function() {
-        // Update time
+        // ============== API CONFIG ==============
+        // Add your API keys here:
+        var FINNHUB_API_KEY = 'YOUR_FINNHUB_KEY'; // Get free key at finnhub.io
+        var ALPHAVANTAGE_API_KEY = 'YOUR_ALPHAVANTAGE_KEY'; // Get free key at alphavantage.co
+        
+        // ============== UPDATE TIME ==============
         function updateTime() {
             var now = new Date();
             document.getElementById('hudTime').textContent = now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
@@ -176,20 +183,74 @@
         setInterval(updateTime, 1000);
         updateTime();
         
-        // Mock market data (replace with real API later)
-        function updateMarketData() {
-            // Simulated prices for demo
-            var smrPrice = (Math.random() * 10 + 8).toFixed(2);
-            var astsPrice = (Math.random() * 3 + 18).toFixed(2);
-            
-            document.getElementById('hudSMR').textContent = '$' + smrPrice;
-            document.getElementById('hudASTS').textContent = '$' + astsPrice;
+        // ============== WEATHER (Open-Meteo - Free, No Key) ==============
+        function fetchWeather() {
+            // West Jordan, UT coordinates: 40.6097, -111.9391
+            // Kingsville, TX coordinates: 27.5158, -97.8547
+            Promise.all([
+                fetch('https://api.open-meteo.com/v1/forecast?latitude=40.61&longitude=-111.94&current_weather=true&temperature_unit=fahrenheit'),
+                fetch('https://api.open-meteo.com/v1/forecast?latitude=27.52&longitude=-97.85&current_weather=true&temperature_unit=fahrenheit')
+            ])
+            .then(function(responses) {
+                return Promise.all(responses.map(function(r) { return r.json(); }));
+            })
+            .then(function(data) {
+                var westJordan = Math.round(data[0].current_weather.temperature);
+                var kingsville = Math.round(data[1].current_weather.temperature);
+                document.getElementById('hudWeather').textContent = westJordan + '°F (UT) / ' + kingsville + '°F (TX)';
+            })
+            .catch(function() {
+                document.getElementById('hudWeather').textContent = '--°F';
+            });
         }
-        setInterval(updateMarketData, 15000);
-        updateMarketData();
         
-        // Weather (mock for now)
-        document.getElementById('hudWeather').textContent = '42°F';
+        // ============== STOCKS (Yahoo Finance via query1) ==============
+        function fetchStocks() {
+            // Using Yahoo Finance (no API key needed via query1)
+            Promise.all([
+                fetch('https://query1.finance.yahoo.com/v8/finance/chart/SMR?interval=1d&range=1d'),
+                fetch('https://query1.finance.yahoo.com/v8/finance/chart/ASTS?interval=1d&range=1d'),
+                fetch('https://query1.finance.yahoo.com/v8/finance/chart/CPER?interval=1d&range=1d') // Copper ETF
+            ])
+            .then(function(responses) {
+                return Promise.all(responses.map(function(r) { return r.json(); }));
+            })
+            .then(function(data) {
+                try {
+                    var smr = data[0].chart.result[0].meta.regularMarketPrice;
+                    var asts = data[1].chart.result[0].meta.regularMarketPrice;
+                    var copper = data[2].chart.result[0].meta.regularMarketPrice;
+                    
+                    document.getElementById('hudSMR').textContent = '$' + smr.toFixed(2);
+                    document.getElementById('hudASTS').textContent = '$' + asts.toFixed(2);
+                    
+                    // Add copper to display
+                    var hudContent = document.getElementById('hudContent');
+                    var copperEl = document.getElementById('hudCopper');
+                    if (!copperEl) {
+                        copperEl = document.createElement('span');
+                        copperEl.className = 'hud-item';
+                        copperEl.id = 'hudCopper';
+                        copperEl.innerHTML = '<span class="hud-sep">|</span>🥉 Cu: <span>--</span>';
+                        document.getElementById('hudASTS').parentElement.parentElement.appendChild(copperEl);
+                    }
+                    copperEl.querySelector('span').textContent = '$' + copper.toFixed(2);
+                } catch(e) {
+                    console.log('Stock data error:', e);
+                }
+            })
+            .catch(function(e) {
+                console.log('Stock fetch error:', e);
+            });
+        }
+        
+        // ============== INITIAL FETCH ==============
+        fetchWeather();
+        fetchStocks();
+        
+        // ============== REFRESH EVERY 15 MINUTES ==============
+        setInterval(fetchWeather, 15 * 60 * 1000);
+        setInterval(fetchStocks, 15 * 60 * 1000);
     })();
     </script>
 </body>
