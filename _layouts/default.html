@@ -24,7 +24,7 @@
 </head>
 <body>
     <div class="scroll-progress" id="progress"></div>
-    <button class="theme-toggle" onclick="toggleTheme()">Dark</button>
+    <button class="theme-toggle" id="themeBtn">Dark</button>
     <div class="container">
         <header>
             <h1>Triết Học Mỗi Ngày</h1>
@@ -66,15 +66,16 @@
         }
         function toggleTheme() {
             var html = document.documentElement;
-            var btn = document.querySelector('.theme-toggle');
+            var btn = document.getElementById('themeBtn');
             var newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
             html.setAttribute('data-theme', newTheme);
             btn.textContent = newTheme === 'dark' ? 'Light' : 'Dark';
             localStorage.setItem('theme', newTheme);
         }
+        document.getElementById('themeBtn').addEventListener('click', toggleTheme);
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.setAttribute('data-theme', 'dark');
-            document.querySelector('.theme-toggle').textContent = 'Light';
+            document.getElementById('themeBtn').textContent = 'Light';
         }
         // Keyboard shortcut: Ctrl+Alt+A for Admin
         document.addEventListener('keydown', function(e) {
