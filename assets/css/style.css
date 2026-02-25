@@ -265,3 +265,14 @@ footer::first-letter {
     nav { gap: var(--space-md); } 
 }
 
+
+/* Admin Link in Footer */
+.admin-link {
+    opacity: 0.3;
+    font-size: 0.7rem;
+    transition: opacity 0.3s;
+    text-decoration: none;
+}
+.admin-link:hover {
+    opacity: 1;
+}

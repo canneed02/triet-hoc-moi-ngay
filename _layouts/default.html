@@ -41,6 +41,9 @@
         <footer>
             <p>© 2026 Triết Học Mỗi Ngày</p>
             <p>Viết cho những ai đang tỉnh</p>
+            <p style="margin-top: 0.5rem;">
+                <a href="/triet-hoc-moi-ngay/admin/" class="admin-link">Viết</a>
+            </p>
         </footer>
     </div>
     <script>
@@ -61,6 +64,13 @@
             document.documentElement.setAttribute('data-theme', 'dark');
             document.querySelector('.theme-toggle').textContent = 'Light';
         }
+        // Keyboard shortcut: Ctrl+Alt+A for Admin
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.altKey && e.key === 'a') {
+                e.preventDefault();
+                window.location.href = '/triet-hoc-moi-ngay/admin/';
+            }
+        });
     </script>
 </body>
 </html>
