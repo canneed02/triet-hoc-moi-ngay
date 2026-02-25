@@ -10,8 +10,8 @@
     --accent: #2D2D2D; 
     --selection-bg: #888888;
     --selection-text: #ffffff;
-    --font-display: 'Playfair Display', 'Georgia', serif; 
-    --font-body: 'Cormorant Garamond', 'Georgia', serif; 
+    --font-display: 'EB Garamond', 'Georgia', serif; 
+    --font-body: 'EB Garamond', 'Georgia', serif; 
     --font-sans: 'Inter', -apple-system, sans-serif; 
     --space-xs: 8px; --space-sm: 16px; --space-md: 24px; --space-lg: 32px; --space-xl: 48px; --space-2xl: 64px; --space-3xl: 96px; 
     --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1); 
@@ -58,7 +58,7 @@ body {
 header { text-align: center; margin-bottom: var(--space-3xl); }
 header h1 { 
     font-family: var(--font-display); 
-    font-size: clamp(2rem, 5vw, 3rem); 
+    font-size: clamp(2rem, 5vw, 3.5rem); 
     font-weight: 400; 
     letter-spacing: -0.02em; 
     line-height: 1.2; 
@@ -186,6 +186,8 @@ h1 a:hover, h2 a:hover, h3 a:hover, .post-preview a:hover, .post-list a:hover {
 .post-content {
     max-width: 65ch;
     margin: 0 auto;
+    font-variant-numeric: oldstyle-nums;
+    text-rendering: optimizeLegibility;
 }
 
 /* DROP CAP - ONLY in .post-content */
@@ -200,7 +202,8 @@ h1 a:hover, h2 a:hover, h3 a:hover, .post-preview a:hover, .post-list a:hover {
 }
 
 .post-content p {
-    line-height: 1.7;
+    line-height: 1.75;
+    margin-bottom: 2rem;
 }
 
 /* BACK LINK */
