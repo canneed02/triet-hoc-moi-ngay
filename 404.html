@@ -1,0 +1,104 @@
+---
+layout: null
+---
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Hư Không</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0A0A0A;
+            --text: #E0E0E0;
+            --text-muted: #888888;
+            --border: #1A1A1A;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        /* Noise overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.035;
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAD7tU1gAAAABlBMVEUAAAD///+l2Z/dAAAAAnRSTlMA/1uRIrUAAAA2SURBVHicmc4xDQAgAMBAwcZ/52Ww4YFDm9An90g6F2HOfR1j2vX5L5K6j067/o80V68vAyQ5A/m/G4yHAAAAAElFTkSuQmCC");
+            background-repeat: repeat;
+            mix-blend-mode: overlay;
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 90%;
+            padding: 20px;
+        }
+        
+        .title {
+            font-family: 'EB Garamond', serif;
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            margin-bottom: var(--space-md);
+            opacity: 0.95;
+        }
+        
+        .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(0.8rem, 3vw, 1rem);
+            font-weight: 300;
+            color: var(--text-muted);
+            opacity: 0.6;
+            line-height: 1.6;
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .back-link {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: 0.15em;
+            padding: 12px 24px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+        .back-link:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.05);
+            opacity: 1;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .title { font-size: clamp(2rem, 8vw, 4rem); }
+            .subtitle { font-size: clamp(0.7rem, 2.5vw, 0.9rem); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">404 - HƯ Không</h1>
+        <p class="subtitle">Trang bạn tìm kiếm không tồn tại, hoặc nó đã chọn cách biến mất khỏi thực tại này.</p>
+        <a href="/triet-hoc-moi-ngay/" class="back-link">← Trở về thực tại</a>
+    </div>
+</body>
+</html>

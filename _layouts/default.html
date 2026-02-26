@@ -32,12 +32,25 @@
             <h1>Triết Học Mỗi Ngày</h1>
             <p class="subtitle">Những suy nghĩ về cuộc sống, cái chết và sự tồn tại</p>
         </header>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
         <nav>
             <a href="{{ site.baseurl }}/">Trang chủ</a>
             <a href="{{ site.baseurl }}/essays/">Bài viết</a>
             <a href="{{ site.baseurl }}/graph/">Mạng lưới</a>
             <a href="{{ site.baseurl }}/about/">Giới thiệu</a>
         </nav>
+        <div class="mobile-nav">
+            <div class="mobile-nav-content">
+                <a href="{{ site.baseurl }}/">Trang chủ</a>
+                <a href="{{ site.baseurl }}/essays/">Bài viết</a>
+                <a href="{{ site.baseurl }}/graph/">Mạng lưới</a>
+                <a href="{{ site.baseurl }}/about/">Giới thiệu</a>
+            </div>
+        </div>
         <main class="post-list">
             {{ content }}
         </main>
@@ -225,6 +238,18 @@
         fetchStocks();
         setInterval(fetchWeather, 15 * 60 * 1000);
         setInterval(fetchStocks, 15 * 60 * 1000);
+        
+        // Mobile menu toggle
+        var hamburger = document.querySelector('.hamburger');
+        var mobileNav = document.querySelector('.mobile-nav');
+        if (hamburger && mobileNav) {
+            hamburger.addEventListener('click', function() {
+                mobileNav.classList.toggle('visible');
+            });
+            mobileNav.addEventListener('click', function() {
+                mobileNav.classList.remove('visible');
+            });
+        }
         
         // Trigger fade-in animation
         setTimeout(function() {
