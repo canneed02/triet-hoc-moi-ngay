@@ -426,3 +426,20 @@ header nav a:hover, .nav a:hover, .site-nav a:hover {
         gap: 1rem !important;
     }
 }
+@media screen and (max-width: 768px) {
+    /* Đẩy nút Theme Toggle sang góc TRÁI */
+    .theme-toggle, #theme-toggle {
+        position: absolute !important;
+        top: 1rem !important;
+        left: 1.5rem !important;
+        right: auto !important;
+        z-index: 100 !important;
+    }
+    /* Đảm bảo nút Hamburger ở góc PHẢI */
+    .mobile-menu-btn, .hamburger {
+        position: absolute !important;
+        top: 1rem !important;
+        right: 1.5rem !important;
+        z-index: 100 !important;
+    }
+}
