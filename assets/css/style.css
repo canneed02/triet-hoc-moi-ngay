@@ -395,3 +395,34 @@ footer::first-letter {
     opacity: 1;
     transform: translateY(0);
 }
+/* ========================================= */
+/* KHÔI PHỤC MENU DESKTOP & MOBILE TỐI GIẢN */
+/* ========================================= */
+header nav, .nav, .site-nav {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 2.5rem !important;
+    list-style: none !important;
+    margin-top: 1.5rem !important;
+    padding: 0 !important;
+}
+header nav a, .nav a, .site-nav a {
+    text-decoration: none !important;
+    opacity: 0.6 !important;
+    font-size: 0.9rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    transition: opacity 0.3s ease !important;
+}
+header nav a:hover, .nav a:hover, .site-nav a:hover {
+    opacity: 1 !important;
+}
+/* Ép Mobile Menu xếp dọc gọn gàng */
+@media screen and (max-width: 768px) {
+    header nav, .nav, .site-nav {
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+}
